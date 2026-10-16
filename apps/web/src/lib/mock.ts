@@ -1,4 +1,8 @@
 // Моковые данные прототипа. Медиа — эталонные ролики из корня проекта.
+// Типы монтажа живут в @lumenkit/core; реэкспорт — пока экраны читают мок, потом уйдёт вместе с ним.
+import type { Block, ChatMessage, Word } from "@lumenkit/core";
+
+export { trackLabel, type Attachment, type Block, type ChatMessage, type GenSpec, type Track, type Word } from "@lumenkit/core";
 
 export type ProjectStatus = "ready" | "rendering" | "draft" | "processing";
 
@@ -100,28 +104,6 @@ export const statusLabel: Record<ProjectStatus, string> = {
 
 // Пресеты — Remotion-компоненты в src/presets (реестр импортируют только клиентские компоненты).
 
-export type Track = "video" | "captions" | "plates" | "zooms" | "transitions" | "media" | "music";
-
-export const trackLabel: Record<Track, string> = {
-  video: "Видео",
-  captions: "Субтитры",
-  plates: "Плашки",
-  zooms: "Зумы",
-  transitions: "Переходы",
-  media: "AI-вставки",
-  music: "Музыка",
-};
-
-export type Block = {
-  id: string;
-  track: Track;
-  start: number;
-  end: number;
-  label: string;
-  presetId?: string;
-  params?: Record<string, unknown>;
-};
-
 export const blocks: Block[] = [
   { id: "b-v1", track: "video", start: 0, end: 11.5, label: "Дубль 1" },
   { id: "b-v2", track: "video", start: 11.5, end: 27, label: "Дубль 2" },
@@ -136,9 +118,6 @@ export const blocks: Block[] = [
   { id: "b-t2", track: "transitions", start: 26.5, end: 27.5, label: "Шторка", presetId: "shtorka" },
   { id: "b-m1", track: "music", start: 0, end: 46, label: "Lo-fi · −18 дБ" },
 ];
-
-// Транскрипт: слова с таймингом (сек). Удалённые слова вырезаются из монтажа.
-export type Word = { id: string; t: number; d: number; text: string; filler?: boolean; emphasis?: boolean };
 
 const raw: [number, string, ("f" | "e")?][] = [
   [0.2, "Я"], [0.4, "уже"], [0.6, "это"], [0.85, "слышал"], [1.3, "и"], [1.5, "думаю"], [1.95, "ну"], [2.2, "такое"],
@@ -157,17 +136,6 @@ export const words: Word[] = raw.map(([t, text, flag], i) => ({
   filler: flag === "f",
   emphasis: flag === "e",
 }));
-
-export type ChatMessage =
-  | { id: string; role: "user"; text: string; presets?: string[]; files?: Attachment[] }
-  | {
-      id: string;
-      role: "assistant";
-      text: string;
-      changes?: { kind: "add" | "swap" | "remove"; label: string; at: string }[];
-      gens?: GenSpec[];
-      state?: "pending" | "applied" | "reverted";
-    };
 
 export const initialChat: ChatMessage[] = [
   {
@@ -230,25 +198,6 @@ export const costs = {
   insert: 3,
   insertAi: 8,
   render: 0,
-};
-
-/** Вложение к сообщению — как в Claude: фото, ролик, файл */
-export type Attachment = { id: string; name: string; url: string; kind: "image" | "video" | "file" };
-
-/** Генерация внутри ответа режиссёра (модель — из lib/models.ts) */
-export type GenSpec = {
-  id: string;
-  kind: "image" | "video";
-  /** id из lib/models.ts */
-  model: string;
-  prompt: string;
-  /** Claude решил и написал промпт сам (авто-режим) */
-  auto?: boolean;
-  /** Фото-референс из вложений */
-  ref?: string;
-  /** Куда Claude поставит результат (сек) */
-  at: number;
-  len: number;
 };
 
 /** Демо-результаты генераций для прототипа */

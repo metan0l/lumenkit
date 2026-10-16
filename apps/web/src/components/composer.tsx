@@ -8,7 +8,7 @@ import { presetCategories, presetRegistry as presets } from "@/presets/registry"
 import type { PresetDef as Preset } from "@/presets/types";
 import { springs } from "@/lib/motion";
 import { credits, type Attachment } from "@/lib/mock";
-import { genModels, type GenModel } from "@/lib/models";
+import { genModels, type GenModel } from "@lumenkit/core";
 import { setAiSettings, useAiSettings } from "@/lib/ai-settings";
 import { estimate, gensIn, presetToken, segments, togglePresetIn } from "@/lib/prompt-tokens";
 import { NoCredits } from "@/components/ui/states";

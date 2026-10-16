@@ -13,9 +13,9 @@
 2. **Режиссёр** — Claude читает расшифровку и промпт пользователя и выдаёт JSON-таймлайн:
    - `cuts` — что вырезать (паузы, «эээ», дубли);
    - `words[].emphasis` — ключевые слова для акцента;
-   - `blocks` — какие пресеты где стоят и с какими параметрами (`presetId` из библиотеки `prototype/src/presets`).
+   - `blocks` — какие пресеты где стоят и с какими параметрами (`presetId` из библиотеки `apps/web/src/presets`).
    Claude не рисует графику, он выбирает и настраивает готовые пресеты — поэтому дёшево и предсказуемо.
-3. **Рендер** — `npx remotion render Short out.mp4 --props=props.json` в `prototype/`. Композиция `ShortComposition` одна для предпросмотра в браузере и для финального файла, поэтому «что видишь — то и получишь».
+3. **Рендер** — `npx remotion render Short out.mp4 --props=props.json` в `apps/web/`. Композиция `ShortComposition` одна для предпросмотра в браузере и для финального файла, поэтому «что видишь — то и получишь».
 
 Правки в редакторе (чатом или руками) меняют только `props.json`; предпросмотр обновляется мгновенно, рендер запускается по кнопке «Экспорт».
 
@@ -27,6 +27,6 @@ pipeline/.venv/Scripts/python pipeline/transcribe.py input/clip.mp4 pipeline/job
 
 # 2. props.json пишет режиссёр (пока — Claude в этой сессии)
 
-# 3. рендер (файл должен лежать в prototype/public/, путь в props — "/input/clip.mp4")
-cd prototype && npx remotion render Short ../pipeline/jobs/clip/out.mp4 --props=../pipeline/jobs/clip/props.json
+# 3. рендер (файл должен лежать в apps/web/public/, путь в props — "/input/clip.mp4")
+cd apps/web && npx remotion render Short ../../pipeline/jobs/clip/out.mp4 --props=../../pipeline/jobs/clip/props.json
 ```

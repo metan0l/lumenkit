@@ -1,0 +1,54 @@
+# Локальная инфраструктура: БД, очереди, S3. Приложение и воркеры запускаются через pnpm.
+# Порты на хосте сдвинуты (5433/6380/9010), чтобы не конфликтовать с другими проектами.
+name: lumenkit
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: lumenkit
+      POSTGRES_PASSWORD: lumenkit
+      POSTGRES_DB: lumenkit
+    ports: ["5433:5432"]
+    volumes: [pg-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lumenkit"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    # BullMQ требует, чтобы Redis не выкидывал ключи очередей
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    ports: ["6380:6379"]
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  # Локальный S3 (SeaweedFS; MinIO больше не публикует образы). В проде — R2.
+  s3:
+    image: chrislusf/seaweedfs:latest
+    command: ["server", "-dir=/data", "-s3", "-s3.port=9000", "-s3.config=/etc/seaweedfs/s3.json"]
+    ports: ["9010:9000"]
+    volumes:
+      - s3-data:/data
+      - ./infra/s3.json:/etc/seaweedfs/s3.json:ro
+
+  # Создаёт бакет при первом запуске
+  s3-init:
+    image: amazon/aws-cli:latest
+    depends_on: [s3]
+    environment:
+      AWS_ACCESS_KEY_ID: lumenkit
+      AWS_SECRET_ACCESS_KEY: lumenkit-secret
+      AWS_DEFAULT_REGION: us-east-1
+    entrypoint: >
+      sh -c "until aws --endpoint-url http://s3:9000 s3 ls >/dev/null 2>&1; do sleep 1; done;
+             aws --endpoint-url http://s3:9000 s3 mb s3://lumenkit || true"
+
+volumes:
+  pg-data:
+  redis-data:
+  s3-data:

@@ -1,6 +1,6 @@
 # Прототип кабинета — состояние на 2026-10-16
 
-UI утверждён владельцем. Прототип — настоящее Next.js-приложение на мок-данных в `prototype/` (порт 3000, запуск: `pnpm --dir prototype dev --port 3000`, или конфиг `prototype` в `.claude/launch.json`). Бэкенда нет: всё, что «генерирует» или «рендерит», — имитация по таймеру. Следующий этап — шаг 3 плана (монорепо, бэкенд); экраны переезжают из `prototype/` в `apps/web` как есть.
+UI утверждён владельцем. Прототип — настоящее Next.js-приложение на мок-данных в `apps/web` (до 2026-10-16 — `prototype/`; порт 3000, запуск: `pnpm dev` из корня, или конфиг `web` в `.claude/launch.json`). Бэкенда нет: всё, что «генерирует» или «рендерит», — имитация по таймеру. Следующий этап — шаг 3 плана (монорепо, бэкенд); экраны уже перенесены в `apps/web` как есть.
 
 Стек прототипа: Next.js 16.4 (App Router, `cacheComponents`, `partialPrefetching`), React 19.3, Tailwind v4 (токены в `globals.css`), `motion/react` (только UI), Remotion 4.0.535 (`remotion`, `@remotion/player`, `@remotion/media`, `@remotion/cli`), zod 4.5.4, vaul, cmdk, lucide-react, pnpm 12.
 
@@ -29,7 +29,7 @@ UI утверждён владельцем. Прототип — настоящ�
 
 ## Главное продуктовое решение: всё в промпте
 
-Промпт — основной интерфейс. Отдельных форм и переключателей для генераций нет — всё пишется токенами в тексте. Парсер: `prototype/src/lib/prompt-tokens.ts` (его логику бэкенд должен повторить — лучше вынести в общий пакет).
+Промпт — основной интерфейс. Отдельных форм и переключателей для генераций нет — всё пишется токенами в тексте. Парсер: `packages/core/src/prompt-tokens.ts` (`createPromptParser(каталог стилей)` — общий для редактора и бэкенда); в вебе он привязан к реестру пресетов в `apps/web/src/lib/prompt-tokens.ts`.
 
 | Токен | Значение |
 |---|---|
@@ -42,11 +42,11 @@ UI утверждён владельцем. Прототип — настоящ�
 - Подсказки при вводе `{` (модели + стили, ↑↓/Enter/Tab/Esc) — `components/token-suggest.tsx`.
 - Подсветка токенов — прозрачная `textarea` поверх «подложки» с тем же текстом (`TokenText` в `components/composer.tsx`); поле растёт по тексту.
 
-### Реестр моделей — `prototype/src/lib/models.ts`
+### Реестр моделей — `packages/core/src/models.ts`
 
 Новая модель = одна запись (id, label, kind image|video, provider, cost в кредитах, strength, acceptsRef). Сейчас: `nano-banana` (фото, 4 кр.), `gpt-image-2` (фото, 6 кр., текст на картинке), `seedance-2.5` (видео 5 сек, 20 кр.). Названия/версии/цены — сверить с провайдерами при подключении. Вызовы — только через адаптеры `ImageProvider` / `VideoProvider`.
 
-### AI-режиссёр — `prototype/src/lib/ai-settings.ts`
+### AI-режиссёр — `apps/web/src/lib/ai-settings.ts`
 
 - **Авто (по умолчанию):** Claude сам решает, нужны ли картинки/видео, выбирает модель, пишет промпт и ставит результат в монтаж — в пределах **лимита кредитов** (слайдер 0–100) и списка разрешённых моделей. Ручные `{модель: …}` выполняются всегда.
 - **Вручную:** только токены.
@@ -55,7 +55,7 @@ UI утверждён владельцем. Прототип — настоящ�
 
 ### Вложения — как в Claude
 
-Скрепка / Ctrl+V / перетаскивание: видео становится основным роликом, фото и файлы — вложениями (тип `Attachment` в `lib/mock.ts`). Claude использует их как референс (фото → кадр для Seedance) или ставит как есть. В прототипе — `blob:`-ссылки; в продукте — загрузка в S3 по presigned URL.
+Скрепка / Ctrl+V / перетаскивание: видео становится основным роликом, фото и файлы — вложениями (тип `Attachment` в `packages/core/src/timeline.ts`). Claude использует их как референс (фото → кадр для Seedance) или ставит как есть. В прототипе — `blob:`-ссылки; в продукте — загрузка в S3 по presigned URL.
 
 ### Цена до отправки
 
@@ -66,7 +66,7 @@ UI утверждён владельцем. Прототип — настоящ�
 - **Пресет** = Remotion-компонент + zod-схема параметров (`presets/fields.ts` → метаданные → автоформа `SchemaForm`) + метаданные. Реестр — `presets/registry.ts`; категории: captions, plates, zooms, transitions, hooks. Анимации внутри — только по кадрам.
 - **Служебный пресет `ai-media`** (`presets/generated.tsx`) — картинка/видео генерации поверх ролика; в библиотеке не показывается.
 - **`ShortComposition`** (`presets/compositions.tsx`) — одна композиция для Player в редакторе и для финального рендера: сегменты видео минус вырезанные слова + зум-обёртки + оверлеи. Вход — `props.json`.
-- **Таймлайн-модель** (`lib/mock.ts`): `Block { id, track, start, end, label, presetId?, params? }`, дорожки `video | captions | plates | zooms | transitions | media | music`; `Word { id, t, d, text, filler?, emphasis? }`; вырезы = id удалённых слов.
+- **Таймлайн-модель** (`packages/core/src/timeline.ts`, мок-данные — `apps/web/src/lib/mock.ts`): `Block { id, track, start, end, label, presetId?, params? }`, дорожки `video | captions | plates | zooms | transitions | media | music`; `Word { id, t, d, text, filler?, emphasis? }`; вырезы = id удалённых слов.
 - **Чат**: `ChatMessage` — user (text, presets, files) / assistant (text, changes[{kind add|swap|remove, label, at}], gens[GenSpec], state pending|applied|reverted). Ответ режиссёра = дифф, который можно принять или откатить.
 - **`GenSpec`** `{ id, kind, model, prompt, at, len, auto?, ref? }` — генерация внутри ответа; карточка (`components/editor/gen-card.tsx`) показывает шаги, результат проявляется из размытия, готовое ставится на дорожку `media`.
 - **Передача главная → редактор**: `sessionStorage` `lumenkit:handoff` `{ prompt, presets, files, gens }` → первое сообщение чата. На бэкенде — это создание проекта + задача в очереди.

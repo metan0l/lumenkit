@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Check, Clapperboard, ImageIcon, Loader2, RefreshCw, Wand2 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { genResults, type GenSpec } from "@/lib/mock";
-import { modelById } from "@/lib/models";
+import { modelById } from "@lumenkit/core";
 import { springs } from "@/lib/motion";
 import { useToast } from "@/components/ui/toast";
 import { useEditor } from "./store";

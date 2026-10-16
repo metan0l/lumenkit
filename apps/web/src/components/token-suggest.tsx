@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { Clapperboard, ImageIcon, Layers } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { springs } from "@/lib/motion";
-import { genModels } from "@/lib/models";
+import { genModels } from "@lumenkit/core";
 import { presetCategories, presetRegistry as presets } from "@/presets/registry";
 
 /*

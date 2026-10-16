@@ -1,0 +1,16 @@
+{
+  "name": "lumenkit",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down"
+  },
+  "packageManager": "pnpm@12.6.0",
+  "devDependencies": {
+    "turbo": "^2.11.8",
+    "typescript": "^5.9.3"
+  }
+}

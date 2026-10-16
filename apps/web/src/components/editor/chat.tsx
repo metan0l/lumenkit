@@ -10,7 +10,7 @@ import { springs } from "@/lib/motion";
 import { useToast } from "@/components/ui/toast";
 import { AttachmentList, Composer, PresetChip, TokenText, presetIdsIn } from "@/components/composer";
 import { getAiSettings } from "@/lib/ai-settings";
-import { modelById } from "@/lib/models";
+import { modelById } from "@lumenkit/core";
 import { planGens } from "@/lib/prompt-tokens";
 import { GenCard } from "./gen-card";
 import { useEditor } from "./store";

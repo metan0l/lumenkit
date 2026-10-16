@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { genModels } from "@/lib/models";
+import { genModels } from "@lumenkit/core";
 
 /*
  * Настройки AI-режиссёра. По умолчанию — «Авто»: Claude сам решает, где нужны картинки и видео,

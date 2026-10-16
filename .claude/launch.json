@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "prototype",
+      "name": "web",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--dir", "prototype", "dev", "--port", "3000"],
+      "runtimeArgs": ["--filter", "@lumenkit/web", "dev"],
       "port": 3000
     }
   ]

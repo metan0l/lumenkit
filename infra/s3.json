@@ -1,0 +1,9 @@
+{
+  "identities": [
+    {
+      "name": "lumenkit",
+      "credentials": [{ "accessKey": "lumenkit", "secretKey": "lumenkit-secret" }],
+      "actions": ["Admin", "Read", "Write", "List", "Tagging"]
+    }
+  ]
+}
