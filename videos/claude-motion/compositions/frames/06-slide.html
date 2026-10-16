@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-cyrillic-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+          unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #fff;
+          overflow: hidden;
+        }
+        .s06-card {
+          position: absolute;
+          left: 390px;
+          top: 360px;
+          width: 300px;
+          height: 400px;
+          border-radius: 40px;
+          padding: 34px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+        }
+        .s06-icon {
+          width: 96px;
+          height: 96px;
+          border-radius: 26px;
+          background: rgba(255, 255, 255, 0.22);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .s06-name {
+          font-size: 46px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+        }
+        .s06-sub {
+          font-size: 26px;
+          font-weight: 500;
+          opacity: 0.8;
+          margin-top: 6px;
+        }
+        .s06-strip {
+          position: absolute;
+          left: -200px;
+          width: 1480px;
+          height: 110px;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          font-size: 54px;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+        }
+        #s06-strip1 {
+          top: 1010px;
+          background: #ff8a1f;
+          color: #120c08;
+          rotate: -4deg;
+        }
+        #s06-strip2 {
+          top: 1150px;
+          background: rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.85);
+          border-top: 2px solid rgba(255, 255, 255, 0.12);
+          border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+          rotate: 3deg;
+        }
+        .s06-run {
+          display: block;
+          padding-left: 40px;
+        }
+      </style>
+
+      <div id="root" data-composition-id="s06" data-width="1080" data-height="1920">
+        <div class="s06-card" id="s06-c1" style="background: linear-gradient(160deg, #a77bff, #6a3df0)">
+          <div class="s06-icon"><svg width="54" height="54" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+          <div><div class="s06-name">Идея</div><div class="s06-sub">из того, что есть</div></div>
+        </div>
+        <div class="s06-card" id="s06-c2" style="background: linear-gradient(160deg, #ff5d7e, #d61f4a)">
+          <div class="s06-icon"><svg width="54" height="54" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3" fill="none" stroke="#fff" stroke-width="2" /><path d="M4 10h16M9 3v4M15 3v4" stroke="#fff" stroke-width="2" stroke-linecap="round" /></svg></div>
+          <div><div class="s06-name">Заявка</div><div class="s06-sub">за 10 секунд</div></div>
+        </div>
+        <div class="s06-card" id="s06-c3" style="background: linear-gradient(160deg, #ffb04a, #ff7a12)">
+          <div class="s06-icon"><svg width="54" height="54" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" /><path d="M9 7a3 3 0 0 1 6 0" fill="none" stroke="#fff" stroke-width="2" /></svg></div>
+          <div style="color: #1a0f06"><div class="s06-name">Товар</div><div class="s06-sub">в одном ролике</div></div>
+        </div>
+
+        <div class="s06-strip" id="s06-strip1"><span class="s06-run" id="s06-run1">СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ • СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ •</span></div>
+        <div class="s06-strip" id="s06-strip2"><span class="s06-run" id="s06-run2">ЭФФЕКТЫ • ПЕРЕХОДЫ • ПЛАШКИ • ЭФФЕКТЫ • ПЕРЕХОДЫ • ПЛАШКИ •</span></div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        // Колода прилетает стопкой
+        tl.fromTo(["#s06-c1", "#s06-c2", "#s06-c3"], { y: 700, rotate: 0, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "expo.out", stagger: 0.05 }, 0.02);
+        // «появляются» — веер
+        tl.fromTo("#s06-c1", { x: 0, rotate: 0 }, { x: -270, rotate: -12, duration: 0.5, ease: "back.out(1.5)" }, 0.26);
+        tl.fromTo("#s06-c3", { x: 0, rotate: 0 }, { x: 270, rotate: 12, duration: 0.5, ease: "back.out(1.5)" }, 0.26);
+        tl.fromTo("#s06-c2", { y: 0, scale: 1 }, { y: -40, scale: 1.06, duration: 0.5, ease: "back.out(1.5)" }, 0.3);
+        // «необычные» — подпрыгивают по очереди
+        tl.fromTo(["#s06-c1", "#s06-c2", "#s06-c3"], { yPercent: 0 }, { yPercent: -8, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1, stagger: 0.08, immediateRender: false }, 0.86);
+        // «скользящие» — карусель: карточки едут влево по кругу
+        tl.to("#s06-c1", { x: -620, rotate: -20, opacity: 0, duration: 0.55, ease: "power3.inOut" }, 1.48);
+        tl.to("#s06-c2", { x: -270, y: 0, rotate: -12, scale: 1, duration: 0.55, ease: "power3.inOut" }, 1.48);
+        tl.to("#s06-c3", { x: 0, rotate: 0, y: -40, scale: 1.06, duration: 0.55, ease: "power3.inOut" }, 1.48);
+
+        // Бегущие строки навстречу друг другу
+        tl.fromTo("#s06-strip1", { xPercent: 110 }, { xPercent: 0, duration: 0.5, ease: "expo.out" }, 1.4);
+        tl.fromTo("#s06-strip2", { xPercent: -110 }, { xPercent: 0, duration: 0.5, ease: "expo.out" }, 1.5);
+        tl.fromTo("#s06-run1", { x: 0 }, { x: -520, duration: 1.4, ease: "none" }, 1.4);
+        tl.fromTo("#s06-run2", { x: -520 }, { x: 0, duration: 1.3, ease: "none" }, 1.5);
+
+        tl.to(["#s06-c2", "#s06-c3", "#s06-strip1", "#s06-strip2"], { opacity: 0, duration: 0.18, ease: "power2.in" }, 2.6);
+        window.__timelines["s06"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,1403 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 11
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 27,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 7.971,
+        "selector": "#s03-l2",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 210.72,
+          "top": 784.69,
+          "right": 869.28,
+          "bottom": 944.69,
+          "width": 658.56,
+          "height": 160
+        },
+        "containerSelector": "#s03-q",
+        "text": "выбирают",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/03-why.html",
+        "bbox": {
+          "x": 210.72,
+          "y": 784.69,
+          "width": 658.56,
+          "height": 160
+        },
+        "firstSeen": 7.971,
+        "lastSeen": 8.096,
+        "occurrences": 2,
+        "heldMs": 125,
+        "times": [
+          7.971,
+          8.096
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 10.317,
+        "selector": "#cap-g8-w0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 129.3,
+          "top": 1563.88,
+          "right": 330.66,
+          "bottom": 1633.88,
+          "width": 201.36,
+          "height": 70
+        },
+        "containerSelector": "#cap-g9-w0",
+        "text": "людям",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 129.3,
+          "y": 1563.88,
+          "width": 201.36,
+          "height": 70
+        },
+        "firstSeen": 10.317,
+        "lastSeen": 10.338,
+        "occurrences": 2,
+        "heldMs": 20.99999999999902,
+        "times": [
+          10.317,
+          10.338
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 1.474,
+        "selector": "#bg-glow",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -221.9,
+          "top": 67.12,
+          "right": 1311.26,
+          "bottom": 1468.86,
+          "width": 1533.17,
+          "height": 1401.74
+        },
+        "containerSelector": "#bg > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 221.9,
+          "right": 231.26
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/bg.html",
+        "bbox": {
+          "x": -221.9,
+          "y": 67.12,
+          "width": 1533.17,
+          "height": 1401.74
+        },
+        "firstSeen": 1.474,
+        "lastSeen": 25.056,
+        "occurrences": 9,
+        "heldMs": 0,
+        "times": [
+          1.474,
+          4.422,
+          7.369,
+          10.317,
+          13.265,
+          16.213,
+          19.161,
+          22.108,
+          25.056
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 1.474,
+        "selector": "#bg-glow-2",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 316.16,
+          "top": 879.57,
+          "right": 1288.16,
+          "bottom": 1839.57,
+          "width": 972,
+          "height": 960
+        },
+        "containerSelector": "#bg > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 208.16
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/bg.html",
+        "bbox": {
+          "x": 316.16,
+          "y": 879.57,
+          "width": 972,
+          "height": 960
+        },
+        "firstSeen": 1.474,
+        "lastSeen": 25.056,
+        "occurrences": 6,
+        "heldMs": 0,
+        "times": [
+          1.474,
+          4.422,
+          7.369,
+          19.161,
+          22.108,
+          25.056
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 2.491,
+        "selector": "#cap-g2-w0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 279.67,
+          "top": 1560.58,
+          "right": 376.55,
+          "bottom": 1630.58,
+          "width": 96.88,
+          "height": 70
+        },
+        "containerSelector": "#cap-g3-w0",
+        "text": "что",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 279.67,
+          "y": 1560.58,
+          "width": 96.88,
+          "height": 70
+        },
+        "firstSeen": 2.491,
+        "lastSeen": 2.491,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.491
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 2.491,
+        "selector": "#cap-g2-w1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 394.55,
+          "top": 1560.58,
+          "right": 590.59,
+          "bottom": 1630.58,
+          "width": 196.04,
+          "height": 70
+        },
+        "containerSelector": "#cap-g3-w0",
+        "text": "Claude",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 394.55,
+          "y": 1560.58,
+          "width": 196.04,
+          "height": 70
+        },
+        "firstSeen": 2.491,
+        "lastSeen": 2.491,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.491
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 3.488,
+        "selector": "#cap-g3-w0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 202.83,
+          "top": 1560.58,
+          "right": 584.77,
+          "bottom": 1630.58,
+          "width": 381.94,
+          "height": 70
+        },
+        "containerSelector": "#cap-g4-w0",
+        "text": "монтировать",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 202.83,
+          "y": 1560.58,
+          "width": 381.94,
+          "height": 70
+        },
+        "firstSeen": 3.488,
+        "lastSeen": 3.488,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.488
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 4.608,
+        "selector": "#cap-g4-w0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 191.66,
+          "top": 1552.45,
+          "right": 418.14,
+          "bottom": 1622.45,
+          "width": 226.48,
+          "height": 70
+        },
+        "containerSelector": "#cap-g5-w0",
+        "text": "момент",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 191.66,
+          "y": 1552.45,
+          "width": 226.48,
+          "height": 70
+        },
+        "firstSeen": 4.608,
+        "lastSeen": 4.608,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          4.608
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 7.369,
+        "selector": "#s03-halo",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 280,
+          "top": 187.06,
+          "right": 800,
+          "bottom": 707.06,
+          "width": 520,
+          "height": 520
+        },
+        "containerSelector": "#s03-spark-wrap",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 400,
+          "top": 307.06,
+          "right": 680,
+          "bottom": 587.06,
+          "width": 280,
+          "height": 280
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/03-why.html",
+        "bbox": {
+          "x": 280,
+          "y": 187.06,
+          "width": 520,
+          "height": 520
+        },
+        "firstSeen": 7.369,
+        "lastSeen": 7.369,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          7.369
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 13.95,
+        "selector": "#cap-g12-w0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 235.66,
+          "top": 1563.3,
+          "right": 521.64,
+          "bottom": 1633.3,
+          "width": 285.98,
+          "height": 70
+        },
+        "containerSelector": "#cap-g13-w0",
+        "text": "посмотри",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 235.66,
+          "y": 1563.3,
+          "width": 285.98,
+          "height": 70
+        },
+        "firstSeen": 13.95,
+        "lastSeen": 13.95,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          13.95
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 16.939,
+        "selector": "#s06-c1 > div:nth-of-type(2) > div:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 424,
+          "top": 653.79,
+          "right": 540.47,
+          "bottom": 709.79,
+          "width": 116.47,
+          "height": 56
+        },
+        "containerSelector": "#s06-c2 > div:nth-of-type(2) > div:nth-of-type(1)",
+        "text": "Идея",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": 424,
+          "y": 653.79,
+          "width": 116.47,
+          "height": 56
+        },
+        "firstSeen": 16.939,
+        "lastSeen": 16.939,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          16.939
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 16.939,
+        "selector": "#s06-c1 > div:nth-of-type(2) > div:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 424,
+          "top": 715.79,
+          "right": 636.31,
+          "bottom": 746.79,
+          "width": 212.31,
+          "height": 31
+        },
+        "containerSelector": "#s06-c2 > div:nth-of-type(2) > div:nth-of-type(1)",
+        "text": "из того, что есть",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": 424,
+          "y": 715.79,
+          "width": 212.31,
+          "height": 31
+        },
+        "firstSeen": 16.939,
+        "lastSeen": 17.064,
+        "occurrences": 2,
+        "heldMs": 125,
+        "times": [
+          16.939,
+          17.064
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 16.939,
+        "selector": "#s06-c2 > div:nth-of-type(2) > div:nth-of-type(2)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 424,
+          "top": 748.01,
+          "right": 584.95,
+          "bottom": 779.01,
+          "width": 160.95,
+          "height": 31
+        },
+        "containerSelector": "#s06-c3 > div:nth-of-type(2) > div:nth-of-type(1)",
+        "text": "за 10 секунд",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": 424,
+          "y": 748.01,
+          "width": 160.95,
+          "height": 31
+        },
+        "firstSeen": 16.939,
+        "lastSeen": 16.939,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          16.939
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 18.309,
+        "selector": "#cap-g15-w0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 97.22,
+          "top": 1552.45,
+          "right": 264.48,
+          "bottom": 1622.45,
+          "width": 167.26,
+          "height": 70
+        },
+        "containerSelector": "#cap-g16-w0",
+        "text": "здесь",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 97.22,
+          "y": 1552.45,
+          "width": 167.26,
+          "height": 70
+        },
+        "firstSeen": 18.309,
+        "lastSeen": 18.309,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          18.309
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 18.309,
+        "selector": "#cap-g15-w1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 282.48,
+          "top": 1552.45,
+          "right": 629.42,
+          "bottom": 1622.45,
+          "width": 346.94,
+          "height": 70
+        },
+        "containerSelector": "#cap-g16-w0",
+        "text": "появляются",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 282.48,
+          "y": 1552.45,
+          "width": 346.94,
+          "height": 70
+        },
+        "firstSeen": 18.309,
+        "lastSeen": 18.309,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          18.309
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-run1",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": -543.44,
+          "top": 960.26,
+          "right": 1576.46,
+          "bottom": 1173.03,
+          "width": 2119.9,
+          "height": 212.77
+        },
+        "containerSelector": "#s06 > div:nth-of-type(1)",
+        "text": "СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ • СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ •",
+        "fixHint": "Text is 2120px x 213px inside 1080px x 1920px and overflows by up to 543px; widen the container to at least ~2120px or shrink font-size from 54px to ~28px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 543.44,
+          "right": 496.46
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -543.44,
+          "y": 960.26,
+          "width": 2119.9,
+          "height": 212.77
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-run1",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -543.44,
+          "top": 960.26,
+          "right": 1576.46,
+          "bottom": 1173.03,
+          "width": 2119.9,
+          "height": 212.77
+        },
+        "containerSelector": "#root",
+        "text": "СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ • СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ •",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 543.44,
+          "right": 496.46
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -543.44,
+          "y": 960.26,
+          "width": 2119.9,
+          "height": 212.77
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-run2",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": -307.21,
+          "top": 1128.23,
+          "right": 1764.25,
+          "bottom": 1301.53,
+          "width": 2071.46,
+          "height": 173.3
+        },
+        "containerSelector": "#s06-strip2",
+        "text": "ЭФФЕКТЫ • ПЕРЕХОДЫ • ПЛАШКИ • ЭФФЕКТЫ • ПЕРЕХОДЫ • ПЛАШКИ •",
+        "fixHint": "Text is 2071px x 173px inside 1484px x 187px and overflows by up to 482px; widen the container to at least ~2071px or shrink font-size from 54px to ~39px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": -201.86,
+          "top": 1111.34,
+          "right": 1281.86,
+          "bottom": 1298.66,
+          "width": 1483.73,
+          "height": 187.31
+        },
+        "overflow": {
+          "left": 105.35,
+          "right": 482.39
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -307.21,
+          "y": 1128.23,
+          "width": 2071.46,
+          "height": 173.3
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-run2",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -307.21,
+          "top": 1128.23,
+          "right": 1764.25,
+          "bottom": 1301.53,
+          "width": 2071.46,
+          "height": 173.3
+        },
+        "containerSelector": "#root",
+        "text": "ЭФФЕКТЫ • ПЕРЕХОДЫ • ПЛАШКИ • ЭФФЕКТЫ • ПЕРЕХОДЫ • ПЛАШКИ •",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 307.21,
+          "right": 684.25
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -307.21,
+          "y": 1128.23,
+          "width": 2071.46,
+          "height": 173.3
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-strip1",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -202.03,
+          "top": 958.51,
+          "right": 1282.03,
+          "bottom": 1171.49,
+          "width": 1484.07,
+          "height": 212.98
+        },
+        "containerSelector": "#s06 > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 202.03,
+          "right": 202.03
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -202.03,
+          "y": 958.51,
+          "width": 1484.07,
+          "height": 212.98
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-strip2",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -201.86,
+          "top": 1111.34,
+          "right": 1281.86,
+          "bottom": 1298.66,
+          "width": 1483.73,
+          "height": 187.31
+        },
+        "containerSelector": "#s06 > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 201.86,
+          "right": 201.86
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -201.86,
+          "y": 1111.34,
+          "width": 1483.73,
+          "height": 187.31
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-run1",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": -583.34,
+          "top": 960.26,
+          "right": 1576.46,
+          "bottom": 1175.82,
+          "width": 2159.8,
+          "height": 215.56
+        },
+        "containerSelector": "#s06-strip1",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": -202.03,
+          "top": 958.51,
+          "right": 1282.03,
+          "bottom": 1171.49,
+          "width": 1484.07,
+          "height": 212.98
+        },
+        "overflow": {
+          "left": 381.31,
+          "right": 294.43
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -583.34,
+          "y": 960.26,
+          "width": 2159.8,
+          "height": 215.56
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-run2",
+        "message": "Nowrap text is wider than its container.",
+        "rect": {
+          "left": -347.15,
+          "top": 1126.14,
+          "right": 1764.25,
+          "bottom": 1301.53,
+          "width": 2111.4,
+          "height": 175.39
+        },
+        "containerSelector": "#s06-strip2",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": -201.86,
+          "top": 1111.34,
+          "right": 1281.86,
+          "bottom": 1298.66,
+          "width": 1483.73,
+          "height": 187.31
+        },
+        "overflow": {
+          "left": 145.29,
+          "right": 482.39
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -347.15,
+          "y": 1126.14,
+          "width": 2111.4,
+          "height": 175.39
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-strip1",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": -202.03,
+          "top": 958.51,
+          "right": 1282.03,
+          "bottom": 1171.49,
+          "width": 1484.07,
+          "height": 212.98
+        },
+        "containerSelector": "#root",
+        "text": "СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ • СКОЛЬЖЕНИЕ • МОУШН",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 202.03,
+          "right": 202.03
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -202.03,
+          "y": 958.51,
+          "width": 1484.07,
+          "height": 212.98
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 19.161,
+        "selector": "#s06-strip2",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": -201.86,
+          "top": 1111.34,
+          "right": 1281.86,
+          "bottom": 1298.66,
+          "width": 1483.73,
+          "height": 187.31
+        },
+        "containerSelector": "#root",
+        "text": "ЭФФЕКТЫ • ПЕРЕХОДЫ • ПЛАШКИ • ЭФФЕКТЫ • ПЕРЕХОДЫ",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 201.86,
+          "right": 201.86
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -201.86,
+          "y": 1111.34,
+          "width": 1483.73,
+          "height": 187.31
+        },
+        "firstSeen": 19.161,
+        "lastSeen": 19.161,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 19.804,
+        "selector": "#cap-g16-w0",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 160.91,
+          "top": 1556.04,
+          "right": 512.31,
+          "bottom": 1626.04,
+          "width": 351.4,
+          "height": 70
+        },
+        "containerSelector": "#cap-g17-w0",
+        "text": "скользящие",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 160.91,
+          "y": 1556.04,
+          "width": 351.4,
+          "height": 70
+        },
+        "firstSeen": 19.804,
+        "lastSeen": 19.804,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          19.804
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 22.108,
+        "selector": "#s08-i1",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 462.73,
+          "top": -143.19,
+          "right": 618.5,
+          "bottom": 12.58,
+          "width": 155.77,
+          "height": 155.77
+        },
+        "containerSelector": "#s08-ring",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 39.58,
+          "top": 159.58,
+          "right": 1040.42,
+          "bottom": 1160.42,
+          "width": 1000.85,
+          "height": 1000.85
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/08-final.html",
+        "bbox": {
+          "x": 462.73,
+          "y": -143.19,
+          "width": 155.77,
+          "height": 155.77
+        },
+        "firstSeen": 22.108,
+        "lastSeen": 22.108,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.108
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 22.108,
+        "selector": "#s08-i2",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 1388.5,
+          "top": 140.4,
+          "right": 1534.17,
+          "bottom": 286.07,
+          "width": 145.67,
+          "height": 145.67
+        },
+        "containerSelector": "#s08-ring",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 39.58,
+          "top": 159.58,
+          "right": 1040.42,
+          "bottom": 1160.42,
+          "width": 1000.85,
+          "height": 1000.85
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/08-final.html",
+        "bbox": {
+          "x": 1388.5,
+          "y": 140.4,
+          "width": 145.67,
+          "height": 145.67
+        },
+        "firstSeen": 22.108,
+        "lastSeen": 22.108,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.108
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 25.056,
+        "selector": "#s08-ring",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -144.27,
+          "top": -24.27,
+          "right": 1224.27,
+          "bottom": 1344.27,
+          "width": 1368.55,
+          "height": 1368.55
+        },
+        "containerSelector": "#s08 > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 144.27,
+          "right": 144.27,
+          "top": 24.27
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/08-final.html",
+        "bbox": {
+          "x": -144.27,
+          "y": -24.27,
+          "width": 1368.55,
+          "height": 1368.55
+        },
+        "firstSeen": 25.056,
+        "lastSeen": 25.056,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          25.056
+        ]
+      }
+    ],
+    "duration": 26.53,
+    "samples": [
+      1.474,
+      4.422,
+      7.369,
+      10.317,
+      13.265,
+      16.213,
+      19.161,
+      22.108,
+      25.056
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 29,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 7,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.82:1; WCAG AA requires 3:1.",
+        "text": "Claude?",
+        "fg": "rgb(92,89,87)",
+        "bg": "rgb(15,11,8)",
+        "ratio": 2.82,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(96,94,92)",
+        "large": true,
+        "selector": "#cap-g6-w2",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 701.59375,
+          "y": 1565.203125,
+          "width": 227.921875,
+          "height": 69.59375
+        },
+        "time": 7.369,
+        "times": [
+          7.369
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.84:1; WCAG AA requires 3:1.",
+        "text": "как",
+        "fg": "rgb(93,90,88)",
+        "bg": "rgb(17,12,9)",
+        "ratio": 2.84,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(97,94,92)",
+        "large": true,
+        "selector": "#cap-g12-w1",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 539.640625,
+          "y": 1565.203125,
+          "width": 99.5625,
+          "height": 69.59375
+        },
+        "time": 13.265,
+        "times": [
+          13.265
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.79:1; WCAG AA requires 3:1.",
+        "text": "шарик",
+        "fg": "rgb(90,88,86)",
+        "bg": "rgb(13,10,7)",
+        "ratio": 2.79,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(95,93,91)",
+        "large": true,
+        "selector": "#cap-g12-w2",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 657.203125,
+          "y": 1565.203125,
+          "width": 187.140625,
+          "height": 69.59375
+        },
+        "time": 13.265,
+        "times": [
+          13.265
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.36:1; WCAG AA requires 3:1.",
+        "text": "Товар",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(255,138,35)",
+        "ratio": 2.36,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(88,88,88)",
+        "large": true,
+        "selector": "div > div:nth-of-type(7) > div > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": 417.0400085449219,
+          "y": 597.3800048828125,
+          "width": 245.91995239257812,
+          "height": 59.3599853515625
+        },
+        "time": 19.161,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.43:1; WCAG AA requires 3:1.",
+        "text": "в одном ролике",
+        "fg": "rgb(255,255,255)",
+        "bg": "rgb(255,133,29)",
+        "ratio": 2.43,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(86,86,86)",
+        "large": true,
+        "selector": "div > div:nth-of-type(7) > div > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": 417.0400085449219,
+          "y": 663.0999755859375,
+          "width": 245.91995239257812,
+          "height": 32.8599853515625
+        },
+        "time": 19.161,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.34:1; WCAG AA requires 3:1.",
+        "text": "СКОЛЬЖЕНИЕ • МОУШН • МОНТАЖ • СКОЛЬЖЕНИЕ • МОУШН •",
+        "fg": "rgb(18,12,8)",
+        "bg": "rgb(51,39,30)",
+        "ratio": 1.34,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(117,114,112)",
+        "large": true,
+        "selector": "#s06-run1",
+        "dataAttributes": {},
+        "sourceFile": "compositions/frames/06-slide.html",
+        "bbox": {
+          "x": -583.3388671875,
+          "y": 960.2571411132812,
+          "width": 2159.80224609375,
+          "height": 215.56097412109375
+        },
+        "time": 19.161,
+        "times": [
+          19.161
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.79:1; WCAG AA requires 3:1.",
+        "text": "или",
+        "fg": "rgb(91,88,86)",
+        "bg": "rgb(14,10,7)",
+        "ratio": 2.79,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(96,93,91)",
+        "large": true,
+        "selector": "#cap-g16-w2",
+        "dataAttributes": {},
+        "sourceFile": "compositions/captions.html",
+        "bbox": {
+          "x": 813.5625,
+          "y": 1565.203125,
+          "width": 105.515625,
+          "height": 69.59375
+        },
+        "time": 19.161,
+        "times": [
+          19.161
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      1.474,
+      7.369,
+      13.265,
+      19.161,
+      25.056
+    ],
+    "checked": 33,
+    "passed": 26
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

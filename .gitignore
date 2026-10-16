@@ -1,0 +1,33 @@
+# зависимости и сборка
+node_modules/
+.next/
+out/
+build/
+dist/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+
+# окружение и секреты
+.env
+.env.*
+!.env.example
+*.pem
+
+# тяжёлые медиа: эталоны и рендеры живут локально / в S3, не в git
+/*.mp4
+**/renders/
+pipeline/musicgen/
+pipeline/jobs/
+videos/**/assets/
+input/
+test/
+
+# python
+__pycache__/
+.venv/
+
+# прочее
+.DS_Store
+Thumbs.db
+*.log

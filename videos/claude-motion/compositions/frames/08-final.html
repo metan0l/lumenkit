@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-cyrillic-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+          unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #fff;
+          overflow: hidden;
+        }
+        #s08-ring {
+          position: absolute;
+          left: 40px;
+          top: 160px;
+          width: 1000px;
+          height: 1000px;
+        }
+        .s08-ico {
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          border-radius: 42px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+        }
+        #s08-title {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 520px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .s08-pre {
+          display: block;
+          font-size: 56px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 18px;
+        }
+        .s08-big {
+          display: block;
+          font-size: 150px;
+          font-weight: 900;
+          letter-spacing: -0.05em;
+          line-height: 0.98;
+        }
+        #s08-w2 {
+          color: #ff8a1f;
+        }
+        #s08-line {
+          display: block;
+          width: 560px;
+          height: 16px;
+          margin-top: 34px;
+          border-radius: 8px;
+          background: #ff8a1f;
+          box-shadow: 0 0 40px rgba(255, 138, 31, 0.7);
+          transform-origin: 0% 50%;
+        }
+        #s08-fade {
+          position: absolute;
+          inset: 0;
+          background: #0b0908;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="s08" data-width="1080" data-height="1920">
+        <div id="s08-ring">
+          <!-- Мотивы прошлых сцен: тумблер, чат, глаз, шарик, карточка, стекло -->
+          <div class="s08-ico" id="s08-i1" style="left: 425px; top: -20px; background: #0a84ff">
+            <svg width="90" height="56" viewBox="0 0 60 36" aria-hidden="true"><rect width="60" height="36" rx="18" fill="rgba(255,255,255,0.35)" /><circle cx="42" cy="18" r="14" fill="#fff" /></svg>
+          </div>
+          <div class="s08-ico" id="s08-i2" style="left: 850px; top: 190px; background: #d97a43">
+            <svg width="70" height="70" viewBox="0 0 24 24" aria-hidden="true"><g fill="#fff"><rect x="11" y="1" width="2" height="22" rx="1" /><rect x="11" y="1" width="2" height="22" rx="1" transform="rotate(45 12 12)" /><rect x="11" y="1" width="2" height="22" rx="1" transform="rotate(90 12 12)" /><rect x="11" y="1" width="2" height="22" rx="1" transform="rotate(135 12 12)" /></g></svg>
+          </div>
+          <div class="s08-ico" id="s08-i3" style="left: 850px; top: 640px; background: #2a2422">
+            <svg width="90" height="90" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="#fff" stroke-width="2" /><circle cx="12" cy="12" r="3.2" fill="#ff8a1f" /></svg>
+          </div>
+          <div class="s08-ico" id="s08-i4" style="left: 425px; top: 860px; background: #f2ede9">
+            <svg width="80" height="80" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#b9b0aa" /><circle cx="10" cy="9" r="3" fill="#fff" /></svg>
+          </div>
+          <div class="s08-ico" id="s08-i5" style="left: 0; top: 640px; background: linear-gradient(160deg, #a77bff, #6a3df0)">
+            <svg width="70" height="70" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3" fill="none" stroke="#fff" stroke-width="2" /><path d="M4 10h16" stroke="#fff" stroke-width="2" /></svg>
+          </div>
+          <div class="s08-ico" id="s08-i6" style="left: 0; top: 190px; background: rgba(255, 255, 255, 0.14); border: 2px solid rgba(255, 255, 255, 0.3)">
+            <svg width="80" height="80" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#30d158" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </div>
+        </div>
+
+        <div id="s08-title">
+          <span class="s08-pre" id="s08-pre">Всё это —</span>
+          <span class="s08-big" id="s08-w1">моушн-</span>
+          <span class="s08-big" id="s08-w2">графика</span>
+          <span id="s08-line"></span>
+        </div>
+        <div id="s08-fade"></div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const icons = ["#s08-i1", "#s08-i2", "#s08-i3", "#s08-i4", "#s08-i5", "#s08-i6"];
+        // Мотивы прилетают из-за краёв и встают в кольцо
+        const from = [
+          { x: 0, y: -700 }, { x: 700, y: -300 }, { x: 700, y: 300 },
+          { x: 0, y: 900 }, { x: -700, y: 300 }, { x: -700, y: -300 },
+        ];
+        icons.forEach((id, i) => {
+          tl.fromTo(id, { x: from[i].x, y: from[i].y, rotate: (i % 2 ? 40 : -40), scale: 0.6, opacity: 0 }, { x: 0, y: 0, rotate: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" }, 0.02 + i * 0.05);
+        });
+                // Иконки мягко покачиваются на месте — не заходят на заголовок
+        icons.forEach((id, i) => tl.fromTo(id, { y: 0 }, { y: i % 2 ? 18 : -18, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 2, immediateRender: false }, 0.62 + i * 0.04));
+
+        // Заголовок по словам
+        tl.fromTo("#s08-pre", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, 0.04);
+        tl.fromTo("#s08-w1", { y: 80, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 0.84);
+        tl.fromTo("#s08-w2", { y: 80, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 1.28);
+        tl.fromTo("#s08-line", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "expo.out" }, 1.75);
+        // Иконки «вздыхают» на ударе
+        tl.fromTo(icons, { scale: 1 }, { scale: 1.12, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, stagger: 0.03, immediateRender: false }, 1.75);
+        // Мягкий уход в конце
+        tl.fromTo("#s08-fade", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.in" }, 4.0);
+        window.__timelines["s08"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

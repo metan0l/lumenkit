@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-cyrillic-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+          unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #fff;
+          overflow: hidden;
+        }
+        .s07-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(60px);
+          opacity: 0.85;
+        }
+        #s07-b1 {
+          left: 120px;
+          top: 300px;
+          width: 420px;
+          height: 420px;
+          background: #0a84ff;
+        }
+        #s07-b2 {
+          left: 560px;
+          top: 420px;
+          width: 380px;
+          height: 380px;
+          background: #ff375f;
+        }
+        #s07-b3 {
+          left: 300px;
+          top: 760px;
+          width: 460px;
+          height: 400px;
+          background: #ff8a1f;
+        }
+        #s07-b4 {
+          left: 640px;
+          top: 940px;
+          width: 300px;
+          height: 300px;
+          background: #30d158;
+        }
+        #s07-stack {
+          position: absolute;
+          left: 110px;
+          right: 110px;
+          top: 330px;
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+        }
+        .s07-glass {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          height: 230px;
+          padding: 0 44px;
+          border-radius: 48px;
+          background: rgba(255, 255, 255, 0.12);
+          border: 2px solid rgba(255, 255, 255, 0.28);
+          backdrop-filter: blur(28px) saturate(1.4);
+          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.35);
+          overflow: hidden;
+        }
+        .s07-ico {
+          flex: none;
+          width: 120px;
+          height: 120px;
+          border-radius: 34px;
+          background: rgba(255, 255, 255, 0.22);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .s07-t {
+          font-size: 48px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+        }
+        .s07-s {
+          font-size: 32px;
+          font-weight: 500;
+          opacity: 0.8;
+          margin-top: 4px;
+        }
+        .s07-shine {
+          position: absolute;
+          top: -40px;
+          bottom: -40px;
+          left: -200px;
+          width: 140px;
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+          rotate: 18deg;
+        }
+      </style>
+
+      <div id="root" data-composition-id="s07" data-width="1080" data-height="1920">
+        <div class="s07-blob" id="s07-b1"></div>
+        <div class="s07-blob" id="s07-b2"></div>
+        <div class="s07-blob" id="s07-b3"></div>
+        <div class="s07-blob" id="s07-b4"></div>
+
+        <div id="s07-stack">
+          <div class="s07-glass" id="s07-g1">
+            <div class="s07-ico"><svg width="64" height="64" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM19 8v6M22 11h-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+            <div><div class="s07-t">Новый подписчик</div><div class="s07-s">только что</div></div>
+            <div class="s07-shine" id="s07-sh1"></div>
+          </div>
+          <div class="s07-glass" id="s07-g2">
+            <div class="s07-ico"><svg width="64" height="64" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+            <div><div class="s07-t">Ролик готов</div><div class="s07-s">1080 × 1920 · 30 к/с</div></div>
+            <div class="s07-shine" id="s07-sh2"></div>
+          </div>
+          <div class="s07-glass" id="s07-g3">
+            <div class="s07-ico"><svg width="64" height="64" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="#fff" stroke-width="2" /><circle cx="12" cy="12" r="3" fill="none" stroke="#fff" stroke-width="2" /></svg></div>
+            <div><div class="s07-t">+1 200 просмотров</div><div class="s07-s">за первый час</div></div>
+            <div class="s07-shine" id="s07-sh3"></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        // Пятна плывут — стеклу есть что размывать
+        tl.fromTo(".s07-blob", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 0.85, duration: 0.5, ease: "expo.out", stagger: 0.05 }, 0);
+        tl.fromTo("#s07-b1", { x: 0, y: 0 }, { x: 120, y: 80, duration: 2.5, ease: "sine.inOut" }, 0);
+        tl.fromTo("#s07-b2", { x: 0, y: 0 }, { x: -140, y: 60, duration: 2.5, ease: "sine.inOut" }, 0);
+        tl.fromTo("#s07-b3", { x: 0, y: 0 }, { x: 100, y: -90, duration: 2.5, ease: "sine.inOut" }, 0);
+        tl.fromTo("#s07-b4", { x: 0, y: 0 }, { x: -120, y: -60, duration: 2.5, ease: "sine.inOut" }, 0);
+
+        // «вот такие» / «красивые» / «стеклянные» — плашки по очереди
+        tl.fromTo("#s07-g1", { y: 140, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.46);
+        tl.fromTo("#s07-g2", { y: 140, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.88);
+        tl.fromTo("#s07-g3", { y: 140, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.4);
+        // «плашечки» — блик пробегает по всем
+        ["#s07-sh1", "#s07-sh2", "#s07-sh3"].forEach((id, i) => {
+          tl.fromTo(id, { x: 0 }, { x: 1200, duration: 0.6, ease: "power2.inOut" }, 1.9 + i * 0.07);
+        });
+        tl.to("#s07-stack", { y: -30, opacity: 0, duration: 0.2, ease: "power2.in" }, 2.3);
+        tl.to(".s07-blob", { opacity: 0, duration: 0.25 }, 2.25);
+        window.__timelines["s07"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

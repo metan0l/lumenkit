@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-cyrillic-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+          unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-latin-wght-normal.woff2") format("woff2");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Inter", sans-serif;
+          color: #fff;
+        }
+        #s04-eye {
+          position: absolute;
+          left: 0;
+          top: 220px;
+          width: 1080px;
+          height: 600px;
+        }
+        #s04-people {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 800px;
+          display: flex;
+          justify-content: center;
+          gap: 0;
+        }
+        .s04-av {
+          width: 108px;
+          height: 108px;
+          margin-left: -22px;
+          border-radius: 50%;
+          border: 6px solid #0b0908;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 40px;
+          font-weight: 700;
+        }
+        #s04-viewers {
+          display: flex;
+          align-items: center;
+          margin-left: 22px;
+          font-size: 40px;
+          font-weight: 700;
+          color: rgba(255, 255, 255, 0.85);
+        }
+        #s04-chart {
+          position: absolute;
+          left: 110px;
+          top: 990px;
+          width: 860px;
+          height: 360px;
+          border-radius: 40px;
+          background: rgba(32, 27, 25, 0.92);
+          border: 2px solid rgba(255, 255, 255, 0.07);
+          display: flex;
+          align-items: center;
+          gap: 44px;
+          padding: 0 50px;
+        }
+        #s04-bars {
+          display: flex;
+          align-items: flex-end;
+          gap: 22px;
+          height: 230px;
+        }
+        .s04-bar {
+          display: block;
+          width: 58px;
+          border-radius: 14px;
+          transform-origin: 50% 100%;
+        }
+        #s04-donut {
+          width: 230px;
+          height: 230px;
+        }
+        #s04-stat {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        #s04-num {
+          font-size: 66px;
+          font-weight: 800;
+          color: #30d158;
+          letter-spacing: -0.02em;
+        }
+        #s04-cap {
+          font-size: 28px;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      </style>
+
+      <div id="root" data-composition-id="s04" data-width="1080" data-height="1920">
+        <svg id="s04-eye" viewBox="0 0 1080 600" aria-hidden="true">
+          <ellipse id="s04-orbit" cx="540" cy="300" rx="380" ry="170" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="3" stroke-dasharray="10 14" />
+          <path id="s04-lid" d="M300 300 Q540 110 780 300 Q540 490 300 300 Z" fill="none" stroke="#ffffff" stroke-width="16" stroke-linejoin="round" />
+          <circle id="s04-iris" cx="540" cy="300" r="82" fill="none" stroke="#ff8a1f" stroke-width="16" />
+          <circle id="s04-pupil" cx="540" cy="300" r="34" fill="#ff8a1f" />
+          <circle id="s04-ball" cx="920" cy="300" r="24" fill="#ffffff" />
+        </svg>
+
+        <div id="s04-people">
+          <div class="s04-av" id="s04-a1" style="background: #8e5cff">А</div>
+          <div class="s04-av" id="s04-a2" style="background: #ff375f">М</div>
+          <div class="s04-av" id="s04-a3" style="background: #0a84ff">Д</div>
+          <div class="s04-av" id="s04-a4" style="background: #30d158">К</div>
+          <div class="s04-av" id="s04-a5" style="background: #ff8a1f">Л</div>
+          <div id="s04-viewers">+12 тыс.</div>
+        </div>
+
+        <div id="s04-chart">
+          <div id="s04-bars">
+            <span class="s04-bar" id="s04-b1" style="height: 90px; background: #5b4a42"></span>
+            <span class="s04-bar" id="s04-b2" style="height: 130px; background: #6e5a50"></span>
+            <span class="s04-bar" id="s04-b3" style="height: 110px; background: #7d6658"></span>
+            <span class="s04-bar" id="s04-b4" style="height: 180px; background: #c8763a"></span>
+            <span class="s04-bar" id="s04-b5" style="height: 230px; background: #ff8a1f"></span>
+          </div>
+          <svg id="s04-donut" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="14" />
+            <circle id="s04-arc" cx="50" cy="50" r="38" fill="none" stroke="#30d158" stroke-width="14" stroke-linecap="round" stroke-dasharray="238.8" stroke-dashoffset="238.8" transform="rotate(-90 50 50)" />
+          </svg>
+          <div id="s04-stat">
+            <div id="s04-num">+0%</div>
+            <div id="s04-cap">досмотров</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const cx = 540, cy = 300, rx = 380, ry = 170;
+        const ball = document.getElementById("s04-ball");
+        const pupil = document.getElementById("s04-pupil");
+        const iris = document.getElementById("s04-iris");
+        const orbit = { a: 0 };
+        const place = () => {
+          const x = cx + rx * Math.cos(orbit.a), y = cy + ry * Math.sin(orbit.a);
+          ball.setAttribute("cx", x.toFixed(2));
+          ball.setAttribute("cy", y.toFixed(2));
+          // Зрачок и радужка следят за шариком
+          pupil.setAttribute("cx", (cx + 30 * Math.cos(orbit.a)).toFixed(2));
+          pupil.setAttribute("cy", (cy + 22 * Math.sin(orbit.a)).toFixed(2));
+          iris.setAttribute("cx", (cx + 16 * Math.cos(orbit.a)).toFixed(2));
+          iris.setAttribute("cy", (cy + 12 * Math.sin(orbit.a)).toFixed(2));
+        };
+
+        // Глаз рисуется
+        const lidLen = 1100;
+        tl.fromTo("#s04-lid", { strokeDasharray: lidLen, strokeDashoffset: lidLen }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 0);
+        tl.fromTo(["#s04-iris", "#s04-pupil"], { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 0.25);
+        tl.fromTo("#s04-orbit", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.3);
+        tl.fromTo("#s04-ball", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.35);
+        // Шарик по орбите — весь кадр
+        tl.fromTo(orbit, { a: 0 }, { a: Math.PI * 3.2, duration: 3.8, ease: "sine.inOut", onUpdate: place }, 0.35);
+        // Моргание на «интересно»
+        tl.fromTo("#s04-lid", { scaleY: 1, transformOrigin: "50% 50%" }, { scaleY: 0.1, duration: 0.08, ease: "power2.in", yoyo: true, repeat: 1, immediateRender: false }, 1.0);
+
+        // «людям» — зрители
+        ["#s04-a1", "#s04-a2", "#s04-a3", "#s04-a4", "#s04-a5"].forEach((id, i) => {
+          tl.fromTo(id, { scale: 0, y: 30 }, { scale: 1, y: 0, duration: 0.36, ease: "back.out(2.2)" }, 0.62 + i * 0.06);
+        });
+        tl.fromTo("#s04-viewers", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 0.98);
+
+        // «инфографикой» — диаграммы
+        tl.fromTo("#s04-chart", { y: 80, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, 2.7);
+        ["#s04-b1", "#s04-b2", "#s04-b3", "#s04-b4", "#s04-b5"].forEach((id, i) => {
+          tl.fromTo(id, { scaleY: 0 }, { scaleY: 1, duration: 0.45, ease: "back.out(1.6)" }, 3.0 + i * 0.07);
+        });
+        tl.fromTo("#s04-arc", { strokeDashoffset: 238.8 }, { strokeDashoffset: 238.8 * 0.22, duration: 0.8, ease: "power3.out" }, 3.15);
+        const stat = { v: 0 };
+        const num = document.getElementById("s04-num");
+        tl.fromTo(stat, { v: 0 }, { v: 78, duration: 0.8, ease: "power3.out", onUpdate: () => (num.textContent = "+" + Math.round(stat.v) + "%"), immediateRender: false }, 3.15);
+
+        tl.to(["#s04-eye", "#s04-people", "#s04-chart"], { opacity: 0, y: -40, duration: 0.2, ease: "power2.in" }, 3.95);
+        window.__timelines["s04"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
