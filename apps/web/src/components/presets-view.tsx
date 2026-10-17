@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { presetCategories, presetRegistry as presets } from "@/presets/registry";
-import type { PresetDef as Preset, PresetCategory } from "@/presets/types";
+import { dimensionLabel, type PresetDef as Preset, type PresetCategory } from "@/presets/types";
 import { enter, enterItem, springs } from "@/lib/motion";
 import { PageHeader } from "@/components/shell/app-shell";
 import { PresetMedia } from "@/components/preset-media";
@@ -119,9 +119,11 @@ function PresetDetail({ preset, onClose }: { preset: Preset | null; onClose: () 
             <div className="flex min-w-0 flex-1 flex-col">
               <div className="flex items-center gap-2">
                 <h2 className="text-[22px] font-medium tracking-[-0.015em]">{preset.name}</h2>
+                {preset.dimension && preset.dimension !== "2d" && <Badge>{dimensionLabel[preset.dimension]}</Badge>}
                 {preset.tier === "pro" && <Badge tone="pro">PRO</Badge>}
               </div>
               <p className="mt-1 text-[14px] text-fg-muted">{preset.description}</p>
+              {preset.useWhen && <p className="mt-1 text-[13px] text-fg-subtle">Когда ставить: {preset.useWhen}</p>}
               <div className="mt-5 min-h-0 flex-1">
                 <SchemaForm schema={preset.schema} value={params} onChange={(k, v) => setParams((p) => ({ ...p, [k]: v }))} />
               </div>

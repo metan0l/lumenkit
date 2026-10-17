@@ -5,11 +5,12 @@ import { useState } from "react";
 import { Check, Plus } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { presetCategories, presetRegistry as presets } from "@/presets/registry";
-import type { PresetDef as Preset, PresetCategory } from "@/presets/types";
+import { dimensionLabel, type PresetDef as Preset, type PresetCategory } from "@/presets/types";
 import { springs } from "@/lib/motion";
 import { usePreviewPlay } from "@/lib/use-preview-play";
 import { presetDragProps } from "@/components/composer";
 import { PresetMedia } from "@/components/preset-media";
+import { PresetPreview } from "@/components/preset-preview";
 import { Badge } from "@/components/ui/badge";
 
 export function CategoryTabs({
@@ -47,7 +48,10 @@ export function CategoryTabs({
   );
 }
 
-/** Карточка пресета, которую можно перетащить в промпт или добавить кнопкой. */
+/**
+ * Карточка пресета: перетащить в промпт, «+» — добавить, клик — открыть
+ * (onOpen, если задан, иначе крупный предпросмотр с управлением).
+ */
 export function LibraryCard({
   preset,
   added,
@@ -62,17 +66,19 @@ export function LibraryCard({
   compact?: boolean;
 }) {
   const { ref, playing, bind } = usePreviewPlay<HTMLDivElement>();
+  const [preview, setPreview] = useState(false);
   return (
     <div ref={ref} {...bind} className="lift group relative" {...presetDragProps(preset.id)}>
       <button
-        onClick={onOpen ?? onAdd}
+        onClick={onOpen ?? (() => setPreview(true))}
         className="block w-full cursor-grab rounded-md text-left outline-offset-4 active:cursor-grabbing"
-        aria-label={onOpen ? `Открыть пресет «${preset.name}»` : `Добавить «${preset.name}» в промпт`}
+        aria-label={onOpen ? `Открыть пресет «${preset.name}»` : `Посмотреть «${preset.name}»`}
       >
         <PresetMedia
           presetId={preset.id}
           playing={playing}
-          className={cn("aspect-[9/16] rounded-md", added && "shadow-[0_0_0_2px_var(--accent)]")}
+          // pointer-events-none: обложка сменяется живым Player при наведении — клик не должен теряться на подмене
+          className={cn("pointer-events-none aspect-[9/16] rounded-md", added && "shadow-[0_0_0_2px_var(--accent)]")}
         />
       </button>
       {onAdd && (
@@ -91,8 +97,12 @@ export function LibraryCard({
       <div className={cn("flex items-center gap-1.5 px-0.5", compact ? "mt-1.5" : "mt-2.5")}>
         <span className={cn("truncate font-medium", compact ? "text-[12px]" : "text-[14px]")}>{preset.name}</span>
         {preset.isNew && !compact && <Badge tone="accent">Новый</Badge>}
+        {preset.dimension && preset.dimension !== "2d" && (
+          <Badge className={compact ? "h-4 px-1 text-[9px]" : undefined}>{dimensionLabel[preset.dimension]}</Badge>
+        )}
         {preset.tier === "pro" && <Badge tone="pro" className={compact ? "h-4 px-1 text-[9px]" : undefined}>PRO</Badge>}
       </div>
+      {!onOpen && <PresetPreview preset={preview ? preset : null} added={added} onAdd={onAdd} onClose={() => setPreview(false)} />}
     </div>
   );
 }

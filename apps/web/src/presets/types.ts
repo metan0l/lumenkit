@@ -23,7 +23,15 @@ type Base<S extends z.ZodObject> = {
   previewFrames: number;
   /** Длительность блока по умолчанию при добавлении на таймлайн (сек) */
   defaultSeconds: number;
+  /** Когда режиссёру ставить стиль: «на цифру в речи», «первые 2 сек», «на склейку после паузы» */
+  useWhen?: string;
+  /** Объём: 3d — Three.js (@remotion/three), рендер заметно дороже; по умолчанию 2d */
+  dimension?: PresetDimension;
 };
+
+export type PresetDimension = "2d" | "2.5d" | "3d";
+
+export const dimensionLabel: Record<PresetDimension, string> = { "2d": "2D", "2.5d": "2.5D", "3d": "3D" };
 
 export type OverlayProps<P> = {
   params: P;
