@@ -19,6 +19,13 @@ export async function POST(_req: Request, ctx: RouteContext<"/api/uploads/[asset
   if (!object) return Response.json({ error: "Файл не дошёл до хранилища — попробуйте ещё раз" }, { status: 409 });
 
   await db.update(assets).set({ status: "processing", sizeBytes: object.size }).where(eq(assets.id, asset.id));
-  await enqueue(db, { type: "media", payload: { assetId: asset.id }, userId, projectId: asset.projectId ?? undefined });
+  try {
+    await enqueue(db, { type: "media", payload: { assetId: asset.id }, userId, projectId: asset.projectId ?? undefined });
+  } catch (e) {
+    // Очередь недоступна — откатываем, чтобы повторный вызов поставил задачу заново, а не завис в «обработке»
+    await db.update(assets).set({ status: "uploading" }).where(eq(assets.id, asset.id));
+    console.error("enqueue media failed", e);
+    return Response.json({ error: "Сервис обработки недоступен — попробуйте ещё раз" }, { status: 503 });
+  }
   return Response.json({ projectId: asset.projectId });
 }
