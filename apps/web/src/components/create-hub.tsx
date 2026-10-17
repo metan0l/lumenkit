@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { Check, Loader2, Play, Plus } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { costs, projects, type Attachment } from "@/lib/mock";
+import { costs, type Attachment } from "@/lib/mock";
+import { useProjects } from "@/components/projects-context";
 import { springs } from "@/lib/motion";
 import { useAppReady } from "@/lib/use-app-ready";
 import { Composer, presetIdsIn, togglePresetIn, type AttachedVideo } from "@/components/composer";
@@ -22,6 +23,7 @@ const EXAMPLE: AttachedVideo = { name: "звуки для монтажа.mp4", p
 
 export function CreateHub() {
   const router = useRouter();
+  const projects = useProjects();
   const [text, setText] = useState("");
   const [video, setVideo] = useState<AttachedVideo | null>(null);
   const [files, setFiles] = useState<Attachment[]>([]);
@@ -55,7 +57,9 @@ export function CreateHub() {
     } catch {}
     setStep(0);
     steps.forEach((_, i) => setTimeout(() => setStep(i + 1), 850 * (i + 1)));
-    setTimeout(() => router.push("/projects/zvuki-dlya-montazha"), 850 * steps.length + 300);
+    // До загрузки видео в S3 (следующий шаг) «создание» открывает демо-проект с полным монтажом
+    const demo = projects.find((p) => p.kind === "short" && p.status === "ready");
+    setTimeout(() => router.push(demo ? `/projects/${demo.id}` : "/projects"), 850 * steps.length + 300);
   };
 
   const chips = video

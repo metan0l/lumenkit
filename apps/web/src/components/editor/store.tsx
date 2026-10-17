@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore } from "react";
-import { blocks as initialBlocks, initialChat, words, type Block, type Attachment, type ChatMessage, type GenSpec } from "@/lib/mock";
+import type { Attachment, Block, ChatMessage, GenSpec, Word } from "@lumenkit/core";
+import type { ProjectData } from "@/server/projects";
 
 /* ---------- Время воспроизведения: внешний стор, чтобы 60 к/с не перерисовывали всё дерево ---------- */
 
@@ -56,6 +57,8 @@ type Editor = {
   seek: (t: number) => void;
   registerSeek: (fn: (t: number) => void) => void;
 
+  /** Транскрипт ролика (слова с таймингом) */
+  words: Word[];
   blocks: Block[];
   deleted: Set<string>;
   selectedId: string | null;
@@ -95,17 +98,19 @@ export function useTime() {
 
 export const HANDOFF_KEY = "lumenkit:handoff";
 
-export function EditorProvider({ duration, children }: { duration: number; children: React.ReactNode }) {
+export function EditorProvider({ data, children }: { data: ProjectData; children: React.ReactNode }) {
+  const { duration } = data.project;
+  const words = data.words;
   const clock = useMemo(createClock, []);
   const [playing, setPlaying] = useState(false);
   const [selectedId, select] = useState<string | null>(null);
   const [hist, dispatch] = useReducer(historyReducer, {
     past: [],
-    present: { blocks: initialBlocks, deleted: [] },
+    present: { blocks: data.blocks, deleted: data.cuts },
     future: [],
   });
   const { past, present, future } = hist;
-  const [chat, setChat] = useState<ChatMessage[]>(initialChat);
+  const [chat, setChat] = useState<ChatMessage[]>(data.chat);
   const [attached, setAttached] = useState<string[]>([]);
   const seekFn = useRef<(t: number) => void>(() => {});
   const [directing, setDirecting] = useState(false);
@@ -119,9 +124,11 @@ export function EditorProvider({ duration, children }: { duration: number; child
       sessionStorage.removeItem(HANDOFF_KEY);
       const h = JSON.parse(raw) as { prompt: string; presets: string[]; files?: Attachment[]; gens?: GenSpec[] };
       if (!h.prompt && !h.files?.length) return;
-      const draft = initialChat[0];
+      const draft = data.chat[0];
+      const ask: ChatMessage = { id: "h0", role: "user", text: h.prompt, presets: h.presets, files: h.files };
+      if (!draft) return setChat([ask]);
       setChat([
-        { id: "h0", role: "user", text: h.prompt, presets: h.presets, files: h.files },
+        ask,
         h.gens?.length && draft.role === "assistant" ? { ...draft, text: `${draft.text} Параллельно генерирую ${h.gens.length} AI-${h.gens.length === 1 ? "вставку" : "вставки"}${h.gens.every((g) => g.auto) ? " — где и что, решил сам —" : h.gens.some((g) => g.auto) ? " (часть добавил сам)" : ""} и поставлю их на таймлайн.`, gens: h.gens } : draft,
       ]);
     } catch {}
@@ -160,6 +167,7 @@ export function EditorProvider({ duration, children }: { duration: number; child
     registerSeek: (fn) => {
       seekFn.current = fn;
     },
+    words,
     blocks: present.blocks,
     deleted,
     selectedId,
@@ -183,7 +191,7 @@ export function EditorProvider({ duration, children }: { duration: number; child
 }
 
 /** Диапазоны, вырезанные через текст (удалённые слова) */
-export function cutRanges(deleted: Set<string>) {
+export function cutRanges(words: Word[], deleted: Set<string>) {
   return words.filter((w) => deleted.has(w.id)).map((w) => [w.t, w.t + w.d] as const);
 }
 

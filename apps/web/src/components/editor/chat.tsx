@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Check, Clapperboard, FileText, Layers, Minus, Plus, RefreshCw, Sparkles, Undo2 } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { costs, suggestions, words, type Attachment, type ChatMessage, type GenSpec } from "@/lib/mock";
+import { costs, suggestions, type Attachment, type ChatMessage, type GenSpec } from "@/lib/mock";
 import { presetRegistry as presets } from "@/presets/registry";
 import { springs } from "@/lib/motion";
 import { useToast } from "@/components/ui/toast";
@@ -395,7 +395,7 @@ function respond(q: string, ed: ReturnType<typeof useEditor>, withPresets: strin
     };
   }
   if (q.includes("пауз") || q.includes("паразит")) {
-    const fill = words.filter((w) => w.filler && !ed.deleted.has(w.id));
+    const fill = ed.words.filter((w) => w.filler && !ed.deleted.has(w.id));
     ed.commit((s) => ({ ...s, deleted: [...s.deleted, ...fill.map((f) => f.id)] }));
     return {
       id,

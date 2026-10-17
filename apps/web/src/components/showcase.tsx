@@ -2,16 +2,15 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { projects } from "@/lib/mock";
+import { useProjects } from "@/components/projects-context";
 import { springs } from "@/lib/motion";
-
-const items = projects.filter((p) => p.aspect === "9:16");
 
 /*
  * Витрина «что получается»: три вертикальных ролика веером, центральный играет,
  * каждые 3.6 с колода сдвигается. Играет только одно видео и только пока сцена на экране.
  */
 export function Showcase() {
+  const items = useProjects().filter((p) => p.aspect === "9:16");
   const [i, setI] = useState(0);
   const reduce = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
@@ -25,10 +24,12 @@ export function Showcase() {
   }, []);
 
   useEffect(() => {
-    if (reduce || !visible) return;
+    if (reduce || !visible || items.length < 2) return;
     const t = setInterval(() => setI((v) => (v + 1) % items.length), 3600);
     return () => clearInterval(t);
-  }, [reduce, visible]);
+  }, [reduce, visible, items.length]);
+
+  if (!items.length) return null;
 
   const at = (k: number) => items[(i + k + items.length) % items.length];
   const slots = [

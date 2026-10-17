@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useDeferredValue, useState } from "react";
 import { Plus, Search, SearchX } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { projects } from "@/lib/mock";
+import { useProjects } from "@/components/projects-context";
 import { enter, enterItem, springs } from "@/lib/motion";
 import { PageHeader } from "@/components/shell/app-shell";
 import { ProjectCard } from "@/components/project-card";
@@ -22,6 +22,7 @@ export function ProjectsView() {
   const [filter, setFilter] = useState<(typeof filters)[number]["id"]>("all");
   const [q, setQ] = useState("");
   const dq = useDeferredValue(q);
+  const projects = useProjects();
 
   const list = projects.filter((p) => {
     if (filter === "short" && p.kind !== "short") return false;

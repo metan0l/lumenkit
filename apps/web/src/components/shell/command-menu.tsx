@@ -4,12 +4,13 @@ import { Command } from "cmdk";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Clapperboard, CreditCard, Film, Layers, Palette, Plus, Sparkles } from "lucide-react";
-import { projects } from "@/lib/mock";
+import { useProjects } from "@/components/projects-context";
 import { presetRegistry as presets } from "@/presets/registry";
 
 // Открывается без анимации — частое клавиатурное действие (правило 3).
 export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const router = useRouter();
+  const projects = useProjects();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

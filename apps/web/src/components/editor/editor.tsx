@@ -23,7 +23,9 @@ import {
   Undo2,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { credits, words, type Project } from "@/lib/mock";
+import { credits } from "@/lib/mock";
+import type { Project } from "@/lib/project";
+import type { ProjectData } from "@/server/projects";
 import { springs } from "@/lib/motion";
 import { Logo } from "@/components/shell/logo";
 import { LogoLoader } from "@/components/brand/animated-logo";
@@ -74,10 +76,10 @@ const quickActions: QuickAction[] = [
   { title: "Музыка под голос", sub: "Тише и с приглушением под речь", prompt: "Сделай музыку тише под голос", icon: <AudioLines className="size-5" /> },
 ];
 
-export function Editor({ project }: { project: Project }) {
+export function Editor({ data }: { data: ProjectData }) {
   return (
-    <EditorProvider duration={project.duration}>
-      <EditorLayout project={project} />
+    <EditorProvider data={data}>
+      <EditorLayout project={data.project} />
     </EditorProvider>
   );
 }
@@ -255,7 +257,7 @@ function Toolbar({ pps, setPps }: { pps: number; setPps: (v: number) => void }) 
   };
 
   const removeFillers = () => {
-    const fill = words.filter((w) => w.filler && !ed.deleted.has(w.id));
+    const fill = ed.words.filter((w) => w.filler && !ed.deleted.has(w.id));
     ed.commit((s) => ({ ...s, deleted: [...s.deleted, ...fill.map((f) => f.id)] }));
     toast({ text: fill.length ? `Убрано пауз и паразитов: ${fill.length}` : "Паразитов не нашлось", action: fill.length ? { label: "Отменить", onClick: ed.undo } : undefined });
   };

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
+import type { Project } from "@/lib/project";
 
 // Живой индикатор очереди (в продукте — SSE). Здесь прогресс тикает на моках.
 export function useMockProgress(start: number, step = 1, every = 900) {
@@ -14,11 +15,11 @@ export function useMockProgress(start: number, step = 1, every = 900) {
   return p;
 }
 
-export function QueueIndicator({ collapsed }: { collapsed: boolean }) {
-  const p = useMockProgress(64);
+export function QueueIndicator({ project, collapsed }: { project: Project; collapsed: boolean }) {
+  const p = useMockProgress(project.progress ?? 0);
   return (
     <Link
-      href="/projects/bmw-v-tumane"
+      href={`/projects/${project.id}`}
       className={cn("block rounded-sm px-2.5 py-2 hover:bg-surface", collapsed && "grid place-items-center px-0")}
       title={collapsed ? `Рендер: ${p}%` : undefined}
     >
@@ -28,7 +29,7 @@ export function QueueIndicator({ collapsed }: { collapsed: boolean }) {
         <>
           <div className="flex items-center gap-2.5">
             <span className="pulse-dot shrink-0" />
-            <span className="min-w-0 flex-1 truncate text-[13px] text-fg-muted">BMW в тумане</span>
+            <span className="min-w-0 flex-1 truncate text-[13px] text-fg-muted">{project.title}</span>
             <span className="font-mono text-[12px] tabular-nums text-fg">{p}%</span>
           </div>
         </>

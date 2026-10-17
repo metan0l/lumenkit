@@ -1,0 +1,1 @@
+ALTER TABLE "projects" ADD COLUMN "aspect" text DEFAULT '9:16' NOT NULL;

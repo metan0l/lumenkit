@@ -2,7 +2,6 @@
 
 import { Eraser } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { words } from "@/lib/mock";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { useEditor, useTime } from "./store";
@@ -12,7 +11,7 @@ export function Transcript() {
   const ed = useEditor();
   const t = useTime();
   const toast = useToast();
-  const fillers = words.filter((w) => w.filler && !ed.deleted.has(w.id));
+  const fillers = ed.words.filter((w) => w.filler && !ed.deleted.has(w.id));
 
   const toggle = (id: string) => {
     const removing = !ed.deleted.has(id);
@@ -41,7 +40,7 @@ export function Transcript() {
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
         <p className="max-w-[68ch] text-[17px] leading-[1.9]">
-          {words.map((w) => {
+          {ed.words.map((w) => {
             const del = ed.deleted.has(w.id);
             const active = t >= w.t && t < w.t + w.d;
             return (

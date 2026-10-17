@@ -108,12 +108,23 @@ export const projects = pgTable(
     /** Текущая (принятая) версия таймлайна */
     timelineVersion: integer("timeline_version").notNull().default(0),
     durationSec: real("duration_sec"),
-    posterAssetId: uuid("poster_asset_id"),
+    aspect: text("aspect").$type<"9:16" | "16:9">().notNull().default("9:16"),
     createdAt: createdAt(),
     updatedAt: updatedAt(),
   },
   (t) => [index("projects_user_idx").on(t.userId, t.updatedAt)],
 );
+
+/** Производные файлы ролика (ключи S3), их готовит media-воркер */
+export type AssetMeta = {
+  poster?: string;
+  preview?: string;
+  /** Лента кадров (1 кадр/с) для таймлайна */
+  filmstrip?: string;
+  /** Волна звука для таймлайна */
+  wave?: string;
+  [k: string]: unknown;
+};
 
 export const assetKind = pgEnum("asset_kind", ["video", "image", "audio", "file", "render", "generated"]);
 export const assetStatus = pgEnum("asset_status", ["uploading", "processing", "ready", "failed"]);
@@ -137,8 +148,7 @@ export const assets = pgTable(
     durationSec: real("duration_sec"),
     width: integer("width"),
     height: integer("height"),
-    /** ffprobe, превью, прокси и т. п. */
-    meta: jsonb("meta").$type<Record<string, unknown>>().notNull().default({}),
+    meta: jsonb("meta").$type<AssetMeta>().notNull().default({}),
     createdAt: createdAt(),
   },
   (t) => [index("assets_project_idx").on(t.projectId), index("assets_user_idx").on(t.userId, t.createdAt)],

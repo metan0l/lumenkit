@@ -6,12 +6,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { Pause, Play, Sparkles, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { springs } from "@/lib/motion";
-import { words } from "@/lib/mock";
 import { ShortComposition, outToSrc, outputDuration, srcToOut, type ShortProps } from "@/presets/compositions";
 import { FPS, HEIGHT, WIDTH } from "@/presets/registry";
 import { cutRanges, fmt, useEditor, useTime } from "./store";
 
-const timedWords = words.map((w) => ({ text: w.text, start: w.t, end: w.t + w.d, emphasis: w.emphasis }));
 
 /*
  * Предпросмотр монтажа — Remotion Player с той же композицией, что пойдёт в рендер.
@@ -23,11 +21,12 @@ export function Player({ src, hideTransport }: { src: string; poster: string; hi
   const player = useRef<PlayerRef>(null);
   const [muted, setMuted] = useState(true);
 
-  const cuts = useMemo(() => cutRanges(ed.deleted).map(([a, b]) => [a, b] as [number, number]), [ed.deleted]);
+  const cuts = useMemo(() => cutRanges(ed.words, ed.deleted).map(([a, b]) => [a, b] as [number, number]), [ed.words, ed.deleted]);
+  const timedWords = useMemo(() => ed.words.map((w) => ({ text: w.text, start: w.t, end: w.t + w.d, emphasis: w.emphasis })), [ed.words]);
   const durationInFrames = Math.max(1, Math.round(outputDuration(ed.duration, cuts) * FPS));
   const inputProps: ShortProps = useMemo(
     () => ({ src, sourceDuration: ed.duration, cuts, blocks: ed.blocks, words: timedWords }),
-    [src, ed.duration, cuts, ed.blocks],
+    [src, ed.duration, cuts, ed.blocks, timedWords],
   );
 
   const cutsRef = useRef(cuts);

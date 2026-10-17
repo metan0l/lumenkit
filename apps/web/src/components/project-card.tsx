@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { statusLabel, type Project } from "@/lib/mock";
+import { statusLabel, type Project } from "@/lib/project";
 import { usePreviewPlay } from "@/lib/use-preview-play";
 import { useMockProgress } from "@/components/shell/queue-indicator";
 

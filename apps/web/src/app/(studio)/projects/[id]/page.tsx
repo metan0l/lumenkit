@@ -3,15 +3,11 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Editor } from "@/components/editor/editor";
 import { LogoLoader } from "@/components/brand/animated-logo";
-import { projects } from "@/lib/mock";
-
-export function generateStaticParams() {
-  return projects.map((p) => ({ id: p.id }));
-}
+import { getProject } from "@/server/projects";
 
 export async function generateMetadata({ params }: PageProps<"/projects/[id]">): Promise<Metadata> {
   const { id } = await params;
-  return { title: projects.find((p) => p.id === id)?.title ?? "Проект" };
+  return { title: (await getProject(id))?.project.title ?? "Проект" };
 }
 
 // Каркас редактора показывается мгновенно при переходе, пока резолвятся params и данные проекта.
@@ -25,9 +21,9 @@ export default function ProjectPage({ params }: PageProps<"/projects/[id]">) {
 
 async function ProjectEditor({ params }: { params: PageProps<"/projects/[id]">["params"] }) {
   const { id } = await params;
-  const project = projects.find((p) => p.id === id);
-  if (!project) notFound();
-  return <Editor project={project} />;
+  const data = await getProject(id);
+  if (!data) notFound();
+  return <Editor data={data} />;
 }
 
 function EditorSkeleton() {

@@ -4,6 +4,8 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 import { credits } from "@/lib/mock";
+import type { Project } from "@/lib/project";
+import { ProjectsProvider, useProjects } from "@/components/projects-context";
 import { enter } from "@/lib/motion";
 import { CommandMenu } from "./command-menu";
 import { MobileHeader, MobileNav } from "./mobile-nav";
@@ -11,36 +13,31 @@ import { Ring, useMockProgress } from "./queue-indicator";
 import { Sidebar } from "./sidebar";
 import { ThemeToggle } from "./theme-toggle";
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({ projects, children }: { projects: Project[]; children: React.ReactNode }) {
   const [cmdOpen, setCmdOpen] = useState(false);
 
   return (
-    <div className="min-h-dvh">
-      <Sidebar onSearch={() => setCmdOpen(true)} />
-      <MobileHeader />
-      <div className="pb-28 md:pb-0 md:pl-[var(--sidebar-w)]">
-        <TopBar />
-        {children}
+    <ProjectsProvider value={projects}>
+      <div className="min-h-dvh">
+        <Sidebar onSearch={() => setCmdOpen(true)} />
+        <MobileHeader />
+        <div className="pb-28 md:pb-0 md:pl-[var(--sidebar-w)]">
+          <TopBar />
+          {children}
+        </div>
+        <MobileNav />
+        <CommandMenu open={cmdOpen} onOpenChange={setCmdOpen} />
       </div>
-      <MobileNav />
-      <CommandMenu open={cmdOpen} onOpenChange={setCmdOpen} />
-    </div>
+    </ProjectsProvider>
   );
 }
 
 /* Правый верх, как во втором референсе: очередь, расход кредитов, аватар */
 function TopBar() {
-  const p = useMockProgress(64);
+  const rendering = useProjects().find((p) => p.status === "rendering");
   return (
     <div className="hidden h-16 items-center justify-end gap-2 px-6 md:flex">
-      <Link
-        href="/projects/bmw-v-tumane"
-        className="press flex h-9 items-center gap-2 rounded-sm px-3 text-[13px] text-fg-muted hover:bg-surface hover:text-fg"
-        title="Рендер в очереди"
-      >
-        <Ring value={p} size={18} />
-        <span className="font-mono tabular-nums">{p}%</span>
-      </Link>
+      {rendering && <RenderLink project={rendering} />}
       <Link href="/billing" className="panel press flex h-9 items-center gap-2.5 rounded-sm px-3 text-[13px] hover:bg-surface-2">
         <span className="text-fg-subtle">Кредиты</span>
         <span className="font-mono tabular-nums">
@@ -58,6 +55,21 @@ function TopBar() {
         ДК
       </Link>
     </div>
+  );
+}
+
+/** Активный рендер. Прогресс пока имитируется от значения из БД — живой придёт по SSE от render-воркера. */
+function RenderLink({ project }: { project: Project }) {
+  const p = useMockProgress(project.progress ?? 0);
+  return (
+    <Link
+      href={`/projects/${project.id}`}
+      className="press flex h-9 items-center gap-2 rounded-sm px-3 text-[13px] text-fg-muted hover:bg-surface hover:text-fg"
+      title="Рендер в очереди"
+    >
+      <Ring value={p} size={18} />
+      <span className="font-mono tabular-nums">{p}%</span>
+    </Link>
   );
 }
 
