@@ -6,7 +6,11 @@
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
     "infra:up": "docker compose up -d",
-    "infra:down": "docker compose down"
+    "infra:down": "docker compose down",
+    "db:generate": "pnpm --filter @lumenkit/db db:generate",
+    "db:migrate": "pnpm --filter @lumenkit/db db:migrate",
+    "db:seed": "pnpm --filter @lumenkit/db db:seed",
+    "db:studio": "pnpm --filter @lumenkit/db db:studio"
   },
   "packageManager": "pnpm@12.6.0",
   "devDependencies": {
