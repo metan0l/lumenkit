@@ -30,6 +30,7 @@
 - AI: Claude API — Sonnet 5.5 (план монтажа), Opus 5.5 (сложные AI-сцены), Haiku 5.5 (теги, модерация). Whisper для транскрипции.
 - Генеративные провайдеры через адаптеры: `ImageProvider` (Nano Banana, GPT Image 2), `VideoProvider` (Seedance).
 - Claude только через API: подписку Pro/Max нельзя использовать как движок сервиса.
+- Шлюз моделей — **OpenRouter** (решение от 2026-10-17): один ключ на Claude, транскрипцию (STT с таймингом слов), картинки и видео (Seedance 2.5). Адаптеры `ImageProvider`/`VideoProvider`/STT остаются — OpenRouter лишь их первая реализация, прямого провайдера можно подключить без правок вызывающего кода.
 - Инфра: Docker Compose локально и на Ubuntu, Caddy, Sentry. Воркеры масштабируются горизонтально: media / ai / render / image / gen.
 
 ## Важные правила
