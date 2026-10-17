@@ -10,8 +10,9 @@ export type Project = {
   progress?: number;
   duration: number; // сек
   aspect: "9:16" | "16:9";
-  poster: string;
-  preview: string;
+  /** Нет, пока воркер не обработал ролик */
+  poster?: string;
+  preview?: string;
   src: string;
   updated: string;
   style: string;
@@ -26,3 +27,9 @@ export const statusLabel: Record<ProjectStatus, string> = {
   draft: "Черновик",
   processing: "Распознаём речь",
 };
+
+/** 46.4 → «0:46», 59.6 → «1:00» */
+export function formatDuration(sec: number) {
+  const total = Math.round(sec);
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+}

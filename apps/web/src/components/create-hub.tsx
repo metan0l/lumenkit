@@ -8,6 +8,8 @@ import { Check, Loader2, Play, Plus } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { costs, type Attachment } from "@/lib/mock";
 import { useProjects } from "@/components/projects-context";
+import { formatDuration } from "@/lib/project";
+import { readVideoFile, uploadVideo, watchProject } from "@/lib/upload";
 import { springs } from "@/lib/motion";
 import { useAppReady } from "@/lib/use-app-ready";
 import { Composer, presetIdsIn, togglePresetIn, type AttachedVideo } from "@/components/composer";
@@ -18,7 +20,8 @@ import { HANDOFF_KEY } from "@/components/editor/store";
 import { planGens } from "@/lib/prompt-tokens";
 import { getAiSettings } from "@/lib/ai-settings";
 
-const steps = ["Загружаем ролик", "Распознаём речь", "Claude монтирует по промпту"];
+// Шаг «Claude монтирует по промпту» вернётся вместе с режиссёром
+const steps = ["Загружаем ролик", "Готовим кадры и звук", "Распознаём речь"];
 const EXAMPLE: AttachedVideo = { name: "звуки для монтажа.mp4", poster: "/media/v2.webp", duration: 46 };
 
 export function CreateHub() {
@@ -28,6 +31,8 @@ export function CreateHub() {
   const [video, setVideo] = useState<AttachedVideo | null>(null);
   const [files, setFiles] = useState<Attachment[]>([]);
   const [step, setStep] = useState(-1);
+  const [uploaded, setUploaded] = useState(0);
+  const [error, setError] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const ready = useAppReady();
   // Один оркестрованный вход после прелоадера: сцена → промпт → разделы, шаг 0.08 с
@@ -56,10 +61,30 @@ export function CreateHub() {
         }));
     } catch {}
     setStep(0);
+    setError(null);
+    if (video.file) return void upload(video.file);
+    // Пример без файла — открываем демо-проект с готовым монтажом
     steps.forEach((_, i) => setTimeout(() => setStep(i + 1), 850 * (i + 1)));
-    // До загрузки видео в S3 (следующий шаг) «создание» открывает демо-проект с полным монтажом
     const demo = projects.find((p) => p.kind === "short" && p.status === "ready");
     setTimeout(() => router.push(demo ? `/projects/${demo.id}` : "/projects"), 850 * steps.length + 300);
+  };
+
+  const upload = async (file: File) => {
+    try {
+      const id = await uploadVideo(file, { onProgress: setUploaded });
+      setStep(1);
+      watchProject(id, (e) => {
+        const failed = e.jobs.find((j) => j.status === "failed");
+        if (failed) return setError(failed.error ?? "Не удалось обработать ролик");
+        if (e.jobs.some((j) => j.type === "transcribe")) setStep(2);
+        if (e.done) {
+          setStep(steps.length);
+          router.push(`/projects/${id}`);
+        }
+      });
+    } catch (e) {
+      setError((e as Error).message);
+    }
   };
 
   const chips = video
@@ -91,11 +116,11 @@ export function CreateHub() {
               {video ? (
                 <motion.div key="video" className="flex h-full items-center gap-8 px-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={springs.ui}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={video.poster} alt="" className="h-[86%] rounded-lg object-cover" style={{ aspectRatio: "9 / 16" }} />
+                  <img src={video.poster || undefined} alt="" className="h-[86%] rounded-lg object-cover" style={{ aspectRatio: "9 / 16" }} />
                   <div className="hidden max-w-[260px] sm:block">
                     <div className="text-[13px] text-fg-subtle">Ролик прикреплён</div>
                     <div className="mt-1 text-[20px] font-medium tracking-[-0.01em]">{video.name}</div>
-                    <div className="mt-1 font-mono text-[13px] text-fg-subtle">0:{String(video.duration).padStart(2, "0")} · 9:16 · 30 к/с</div>
+                    <div className="mt-1 font-mono text-[13px] text-fg-subtle">{formatDuration(video.duration)} · 9:16 · 30 к/с</div>
                     <p className="mt-4 text-[14px] leading-[1.5] text-fg-muted">Опишите ниже, что сделать: субтитры, зумы, плашки, музыка — Claude соберёт монтаж.</p>
                   </div>
                 </motion.div>
@@ -126,7 +151,10 @@ export function CreateHub() {
                     type="file"
                     accept="video/*"
                     className="hidden"
-                    onChange={(e) => e.target.files?.[0] && setVideo({ ...EXAMPLE, name: e.target.files[0].name })}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) readVideoFile(file).then((info) => setVideo({ name: file.name, ...info, file }));
+                    }}
                   />
                 </motion.div>
               )}
@@ -136,7 +164,7 @@ export function CreateHub() {
 
         <motion.div {...enter(1)} className="relative z-10 mx-3 -mt-16 md:mx-10 md:-mt-20">
           {step >= 0 ? (
-            <Progress step={step} name={video?.name ?? ""} />
+            <Progress step={step} name={video?.name ?? ""} uploaded={uploaded} error={error} onRetry={() => setStep(-1)} />
           ) : (
             <Composer
               value={text}
@@ -184,7 +212,7 @@ export function CreateHub() {
   );
 }
 
-function Progress({ step, name }: { step: number; name: string }) {
+function Progress({ step, name, uploaded, error, onRetry }: { step: number; name: string; uploaded: number; error: string | null; onRetry: () => void }) {
   return (
     <div className="rounded-xl border border-line-strong bg-surface-2 p-6" aria-live="polite">
       <div className="font-mono text-[12px] text-fg-subtle">{name}</div>
@@ -198,11 +226,21 @@ function Progress({ step, name }: { step: number; name: string }) {
                 {done ? <Check className="size-3.5" strokeWidth={3} /> : active ? <Loader2 className="size-3.5 animate-spin" /> : null}
               </span>
               {label}
+              {i === 0 && active && uploaded > 0 && <span className="t-num text-[13px] text-fg-subtle">{Math.round(uploaded * 100)}%</span>}
             </li>
           );
         })}
       </ol>
-      <p className="mt-5 text-[14px] text-fg-muted">Обычно меньше минуты. Можно уйти — проект появится в списке.</p>
+      {error ? (
+        <div className="mt-5 flex items-center justify-between gap-4">
+          <p className="text-[14px] text-danger">{error}</p>
+          <button onClick={onRetry} className="press shrink-0 rounded-sm px-3 py-1.5 text-[14px] text-fg hover:bg-surface-3">
+            Назад
+          </button>
+        </div>
+      ) : (
+        <p className="mt-5 text-[14px] text-fg-muted">Обычно меньше минуты. Можно уйти — проект появится в списке.</p>
+      )}
     </div>
   );
 }

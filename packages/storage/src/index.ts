@@ -1,5 +1,9 @@
 import { GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { createWriteStream } from "node:fs";
+import { readFile } from "node:fs/promises";
+import type { Readable } from "node:stream";
+import { pipeline } from "node:stream/promises";
 
 /*
  * S3-совместимое хранилище: локально SeaweedFS (docker-compose), в проде R2.
@@ -21,6 +25,9 @@ function s3() {
     credentials: { accessKeyId: env("S3_ACCESS_KEY"), secretAccessKey: env("S3_SECRET_KEY") },
     // SeaweedFS и MinIO понимают только path-style: http://host/bucket/key
     forcePathStyle: true,
+    // Иначе SDK вшивает в подписанный PUT контрольную сумму, которую браузер не пришлёт (так же нужно для R2)
+    requestChecksumCalculation: "WHEN_REQUIRED",
+    responseChecksumValidation: "WHEN_REQUIRED",
   });
   return client;
 }
@@ -53,4 +60,14 @@ export async function headObject(key: string) {
     if ((e as { name?: string }).name === "NotFound") return undefined;
     throw e;
   }
+}
+
+/** Скачивает объект в локальный файл (воркерам нужен файл для ffmpeg) */
+export async function downloadToFile(key: string, file: string) {
+  const r = await s3().send(new GetObjectCommand({ Bucket: bucket(), Key: key }));
+  await pipeline(r.Body as Readable, createWriteStream(file));
+}
+
+export async function putFile(key: string, file: string, contentType: string) {
+  await putObject(key, await readFile(file), contentType);
 }

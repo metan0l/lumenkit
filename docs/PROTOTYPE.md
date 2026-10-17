@@ -72,6 +72,12 @@ UI утверждён владельцем. Прототип — настоящ�
 - **Передача главная → редактор**: `sessionStorage` `lumenkit:handoff` `{ prompt, presets, files, gens }` → первое сообщение чата. На бэкенде — это создание проекта + задача в очереди.
 - Ручная проба конвейера (расшифровка → props → рендер): `pipeline/README.md`.
 
+## Уже на бэкенде (2026-10-17)
+
+- Проекты, таймлайн (версиями), транскрипт и чат — из Postgres (`apps/web/src/server/projects.ts`); пользователь пока `dev-user` (`server/db.ts → currentUserId`).
+- Загрузка ролика: `POST /api/uploads` → PUT в S3 по подписанной ссылке → `POST /api/uploads/[assetId]/complete` → очередь `media` (обложка, превью, лента кадров, волна, моно-дорожка) → очередь `ai` (расшифровка Scribe v2 через OpenRouter, запасной Whisper) → `usage_log`. Прогресс — SSE `/api/projects/[id]/events`.
+- Главная грузит настоящий файл и открывает редактор нового проекта; пример без файла по-прежнему открывает демо.
+
 ## Что в прототипе — заглушки (делать на бэкенде)
 
 - Режиссёр: `respond()` / `directGens()` / `placeFiles()` в `components/editor/chat.tsx` и `planGens()` — эвристики вместо Claude. Ответы на правки грубые.

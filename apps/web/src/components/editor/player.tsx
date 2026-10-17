@@ -16,7 +16,7 @@ import { cutRanges, fmt, useEditor, useTime } from "./store";
  * Пресеты на таймлайне — те же компоненты, что в библиотеке.
  * Время в сторе — в секундах исходника; вырезанные слова пропускаются композицией.
  */
-export function Player({ src, hideTransport }: { src: string; poster: string; hideTransport?: boolean }) {
+export function Player({ src, hideTransport }: { src: string; poster?: string; hideTransport?: boolean }) {
   const ed = useEditor();
   const player = useRef<PlayerRef>(null);
   const [muted, setMuted] = useState(true);

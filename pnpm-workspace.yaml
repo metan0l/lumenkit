@@ -4,6 +4,8 @@ packages:
 
 allowBuilds:
   esbuild: true
+  # необязательный нативный ускоритель BullMQ — работает и без него
+  msgpackr-extract: false
   sharp: false
   unrs-resolver: false
 minimumReleaseAgeExclude:

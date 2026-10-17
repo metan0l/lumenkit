@@ -15,8 +15,11 @@ import { NoCredits } from "@/components/ui/states";
 import { SuggestList, suggestContext, suggestions, type Suggestion } from "@/components/token-suggest";
 
 export const PRESET_MIME = "application/x-montage-preset";
+import { formatDuration } from "@/lib/project";
+import { readVideoFile } from "@/lib/upload";
 
-export type AttachedVideo = { name: string; poster: string; duration: number };
+/** Основной ролик. file — настоящий файл для загрузки; без него это демо-пример */
+export type AttachedVideo = { name: string; poster: string; duration: number; file?: File };
 
 export { presetIdsIn, presetToken, togglePresetIn } from "@/lib/prompt-tokens";
 
@@ -255,7 +258,7 @@ export function Composer({
   const addFiles = (list: FileList | File[]) => {
     const arr = [...list];
     const vid = allowVideo && !video ? arr.find((f) => f.type.startsWith("video/")) : undefined;
-    if (vid) onVideo?.({ name: vid.name, poster: "/media/v2.webp", duration: 46 });
+    if (vid) readVideoFile(vid).then((info) => onVideo?.({ name: vid.name, ...info, file: vid }));
     const rest = arr.filter((f) => f !== vid);
     if (rest.length && onFiles) onFiles([...files, ...rest.map(toAttachment)]);
   };
@@ -316,10 +319,10 @@ export function Composer({
           {video && (
             <span className="inline-flex h-16 items-center gap-2.5 rounded-md bg-surface-3 py-1 pr-1.5 pl-1 text-[13px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={video.poster} alt="" className="h-14 w-8 rounded-[6px] object-cover" />
+              <img src={video.poster || undefined} alt="" className="h-14 w-8 rounded-[6px] object-cover" />
               <span className="flex flex-col">
                 <span className="max-w-[160px] truncate font-medium">{video.name}</span>
-                <span className="font-mono text-[12px] text-fg-subtle tabular-nums">ролик · 0:{String(video.duration).padStart(2, "0")}</span>
+                <span className="font-mono text-[12px] text-fg-subtle tabular-nums">ролик · {formatDuration(video.duration)}</span>
               </span>
               <button
                 onClick={() => onVideo?.(null)}

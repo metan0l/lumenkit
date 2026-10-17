@@ -1,0 +1,22 @@
+{
+  "name": "@lumenkit/jobs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lumenkit/db": "workspace:*",
+    "bullmq": "^6.3.15",
+    "drizzle-orm": "^0.45.4",
+    "ioredis": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^5.9.3"
+  }
+}

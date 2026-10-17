@@ -4,15 +4,9 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { statusLabel, type Project } from "@/lib/project";
+import { formatDuration, statusLabel, type Project } from "@/lib/project";
 import { usePreviewPlay } from "@/lib/use-preview-play";
 import { useMockProgress } from "@/components/shell/queue-indicator";
-
-export function formatDuration(sec: number) {
-  const m = Math.floor(sec / 60);
-  const s = Math.round(sec % 60);
-  return `${m}:${String(s).padStart(2, "0")}`;
-}
 
 export function ProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
   const { ref, playing, bind } = usePreviewPlay<HTMLAnchorElement>();
@@ -37,6 +31,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
     const v = video.current;
     if (!v) return;
     if (playing) {
+      if (!project.preview) return;
       if (!v.src) v.src = project.preview;
       v.currentTime = 0;
       v.play().catch(() => {});

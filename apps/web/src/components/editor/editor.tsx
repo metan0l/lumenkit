@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Drawer } from "vaul";
 import {
@@ -26,6 +27,7 @@ import { cn } from "@/lib/cn";
 import { credits } from "@/lib/mock";
 import type { Project } from "@/lib/project";
 import type { ProjectData } from "@/server/projects";
+import { watchProject } from "@/lib/upload";
 import { springs } from "@/lib/motion";
 import { Logo } from "@/components/shell/logo";
 import { LogoLoader } from "@/components/brand/animated-logo";
@@ -77,8 +79,16 @@ const quickActions: QuickAction[] = [
 ];
 
 export function Editor({ data }: { data: ProjectData }) {
+  const router = useRouter();
+  // Ролик ещё обрабатывается — перечитываем проект, когда воркер закончит
+  useEffect(() => {
+    if (data.project.status !== "processing") return;
+    return watchProject(data.project.id, (e) => e.done && router.refresh());
+  }, [data.project.id, data.project.status, router]);
+
   return (
-    <EditorProvider data={data}>
+    // Новые данные с сервера (версия таймлайна, транскрипт) — заново собрать состояние редактора
+    <EditorProvider key={`${data.version}:${data.words.length}`} data={data}>
       <EditorLayout project={data.project} />
     </EditorProvider>
   );

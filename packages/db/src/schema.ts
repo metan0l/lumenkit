@@ -123,6 +123,8 @@ export type AssetMeta = {
   filmstrip?: string;
   /** Волна звука для таймлайна */
   wave?: string;
+  /** Сжатая моно-дорожка для расшифровки */
+  speech?: string;
   [k: string]: unknown;
 };
 

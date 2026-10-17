@@ -1,0 +1,25 @@
+{
+  "name": "@lumenkit/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=../../.env src/index.ts",
+    "start": "tsx --env-file=../../.env src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lumenkit/ai": "workspace:*",
+    "@lumenkit/core": "workspace:*",
+    "@lumenkit/db": "workspace:*",
+    "@lumenkit/jobs": "workspace:*",
+    "@lumenkit/storage": "workspace:*",
+    "bullmq": "^6.3.15",
+    "drizzle-orm": "^0.45.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}

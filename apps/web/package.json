@@ -11,6 +11,7 @@
   "dependencies": {
     "@lumenkit/core": "workspace:*",
     "@lumenkit/db": "workspace:*",
+    "@lumenkit/jobs": "workspace:*",
     "@lumenkit/storage": "workspace:*",
     "@remotion/cli": "4.0.535",
     "@remotion/google-fonts": "4.0.535",

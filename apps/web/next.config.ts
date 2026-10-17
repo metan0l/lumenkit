@@ -8,7 +8,9 @@ try {
 const nextConfig: NextConfig = {
   devIndicators: false,
   // Пакеты воркспейса отдаются исходниками TS — Next транспилирует их сам
-  transpilePackages: ["@lumenkit/core", "@lumenkit/db", "@lumenkit/storage"],
+  transpilePackages: ["@lumenkit/core", "@lumenkit/db", "@lumenkit/jobs", "@lumenkit/storage"],
+  // BullMQ читает свои Lua-скрипты с диска — его нельзя бандлить
+  serverExternalPackages: ["bullmq", "ioredis"],
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
